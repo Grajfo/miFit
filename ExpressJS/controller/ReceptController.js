@@ -1,0 +1,102 @@
+const Recept = require('../models/Recept');
+
+
+exports.vsiRecepti = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana', 'kategorija_recepta'] });
+        return res.json(vsiRecepti.toJSON());
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err);
+    }
+};
+
+exports.enRecept = async(req, res) => 
+{
+   try 
+   {    
+        const recept = await new Recept().where('id', req.params.idRecept).fetch({ withRelated: ['hrana', 'kategorija_recepta'] });
+        return res.json(recept.toJSON());
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'id ne obstaja'});
+   }
+};
+
+exports.dodajRecept = async(req, res) => 
+{
+    try
+    {
+        const novrecept = 
+        {
+            ime: req.body.ime,
+            opis: req.body.opis,
+            kalorije: req.body.kalorije,
+            hranilne_vrednosti: req.body.hranilne_vrednosti
+        };
+
+        if (!novrecept.ime || !novrecept.opis || !novrecept.kalorije || !novrecept.hranilne_vrednosti)
+        {
+            return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
+        }
+        else
+        {
+            const shrani = await new Recept().save(novrecept);
+            return res.json({message: 'recept dodana'}); 
+        }
+    }
+    catch(err)
+    {
+        return res.status(404).json(err);    
+    }
+};
+
+exports.posodobiRecept = async(req, res) => 
+{
+    try
+    {
+        if(req.params.idRecept == req.body.id)
+        {
+            if(typeof req.body.ime === 'string' && typeof req.body.opis === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.opis !== "" && req.body.hranilne_vrednosti !== "")                 
+            {
+                recept = await new Recept().where('id', req.body.id).save
+                (
+                    {
+                        ime: req.body.ime,
+                        opis: req.body.opis,
+                        kalorije: req.body.kalorije,
+                        hranilne_vrednosti: req.body.hranilne_vrednosti
+                    }, {patch:true}
+                );
+                return res.json({message: 'recept posodobljena'});          
+
+            }
+            else
+            {
+                return res.status(404).json({msg: 'podatki niso pravilni'});
+            }
+        }
+    }
+    catch(err)
+    {
+        return res.status(400).json(err);
+    }
+};
+
+exports.izbrisiRecept = async(req, res) => 
+{
+    try
+    {
+        delRecept = await new Recept().where('id', req.params.idRecept).destroy();   
+        return res.json({message: 'recept izbrisana'});          
+    
+    }
+    catch (err)
+    {
+        return res.status(404).json({msg: 'id ne obstaja'});
+    }
+};
