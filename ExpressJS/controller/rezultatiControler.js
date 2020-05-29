@@ -1,5 +1,8 @@
 const rezultat = require('../models/rezultati');
 
+
+//test Retko
+
 exports.vsiRezultati = async(req, res) => 
 {
     try
