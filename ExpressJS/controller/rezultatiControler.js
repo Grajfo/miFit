@@ -1,6 +1,13 @@
 const rezultat = require('../models/rezultati');
+<<<<<<< HEAD
 // test
 // test
+=======
+
+
+//test Retko
+
+>>>>>>> 7b5c9e7f3b16a37c5d8a9fe5bda68ca720836f2a
 exports.vsiRezultati = async(req, res) => 
 {
     try
