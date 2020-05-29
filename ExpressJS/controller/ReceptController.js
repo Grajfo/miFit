@@ -5,7 +5,7 @@ exports.vsiRecepti = async(req, res) =>
 {
     try
     {
-        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana', 'kategorija_recepta'] });
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana', 'kategorija_recepta','uporabnik'] });
         return res.json(vsiRecepti.toJSON());
     } 
     catch (err)
@@ -18,7 +18,7 @@ exports.enRecept = async(req, res) =>
 {
    try 
    {    
-        const recept = await new Recept().where('id', req.params.idRecept).fetch({ withRelated: ['hrana', 'kategorija_recepta'] });
+        const recept = await new Recept().where('id', req.params.idRecept).fetch({ withRelated: ['hrana', 'kategorija_recepta', 'uporabnik'] });
         return res.json(recept.toJSON());
    } 
    catch (err) 

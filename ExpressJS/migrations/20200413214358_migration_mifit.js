@@ -23,6 +23,9 @@ exports.up = function(knex) {
             table.decimal('kalorije').notNullable();
             table.string('hranilne_vrednosti').notNullable();
             table.integer('uporabnik_id').references('id').inTable('Uporabnik');
+            table.integer('kategirja_id').references('id').inTable('Hrana');
+            table.integer('hrana_id').references('id').inTable('Kategorija_recepta');
+
         }
         ).createTable('Hrana', (table) => {
             table.increments('id').primary();
@@ -30,13 +33,11 @@ exports.up = function(knex) {
             table.integer('kolicina').notNullable();
             table.decimal('kalorije').notNullable();
             table.string('hranilne_vrednosti').notNullable();
-            table.integer('Recept_id').references('id').inTable('Recept');
         }
         ).createTable('Kategorija_recepta', (table) => {
             table.increments('id').primary();
             table.string('ime_kategorije').notNullable();
             table.decimal('tip').notNullable();
-            table.integer('Recept_id').references('id').inTable('Recept');
         }
         ).createTable('Rezultati', (table) => {
             table.increments('id').primary();

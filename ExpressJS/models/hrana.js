@@ -4,7 +4,7 @@ const Hrana = ks.Model.extend({
     tableName: 'Hrana',
     idAttribute: 'id',
     Recept: function() {
-        return this.belongsTo(require('./Recept'), 'Recept_id');
+        return this.hasMany(require('./Recept'), 'hrana_id');
     }
 });
 
