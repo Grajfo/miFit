@@ -63,6 +63,7 @@ exports.up = function(knex) {
             table.integer('misicnaSkupina_id').references('id').inTable('MisicnaSkupina');
         }
         ).createTable('Trening', (table) => {
+            table.increments('id').primary();;
             table.string('naziv').notNullable();
             table.string('tip').notNullable();
             table.string('opis').nullable();
