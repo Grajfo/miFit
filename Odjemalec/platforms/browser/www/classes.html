@@ -88,34 +88,35 @@
     <!-- Register Section Begin -->
     <section class="register-section classes-page spad">
         <div class="container">
-            <div ng-app="uporabniskiRacun" ng-controller="uporabniskiRacunController"></div>
-            <div class="classes-page-text">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="register-text">
-                            <div class="section-title">
-                                <h2>Registracija</h2>
-                                <p>Vnesi elektronski naslov in geslo</p>
-                            </div>
-                            <form action="#" class="register-form">
-                                <div class="row">     
-                                    <div class="col-lg-6">
-                                        <label for="email">Elektronski naslov:</label>
-                                        <input type="text" id="email" name="email" ng-model="formData.email">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="geslo">Geslo</label>
-                                        <input type="text" id="geslo" name="geslo" ng-model="formData.geslo">
-                                    </div>
-                                   
+            <div ng-app="uporabniskiRacun" ng-controller="uporabniskiRacunController">
+                <div class="classes-page-text">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="register-text">
+                                <div class="section-title">
+                                    <h2>Registracija</h2>
+                                    <p>Vnesi elektronski naslov in geslo</p>
                                 </div>
-                                <button type="submit" ng-click="dodajUporabniskiRacun()" class="register-btn">Potrdi</button>
-                            </form>
+                                <form action="#" class="register-form">
+                                    <div class="row">     
+                                        <div class="col-lg-6">
+                                            <label for="email">Elektronski naslov:</label>
+                                            <input type="text" id="email" name="email" ng-model="formData.email">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="geslo">Geslo</label>
+                                            <input type="text" id="geslo" name="geslo" ng-model="formData.geslo">
+                                        </div>
+                                    
+                                    </div>
+                                    <button type="submit" ng-click="dodajUporabniskiRacun()" class="register-btn">Potrdi</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="register-pic">
-                            <img src="img/register-pic.jpg" alt="">
+                        <div class="col-lg-4">
+                            <div class="register-pic">
+                                <img src="img/register-pic.jpg" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
