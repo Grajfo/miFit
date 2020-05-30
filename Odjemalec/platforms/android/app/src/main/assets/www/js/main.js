@@ -73,6 +73,27 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                 alert(error.data + "napaka");
             };
     };
+
+    $scope.LoginPreveri = function() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/uporabniskiRacun/preveri',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
+                $scope.formData = {}
+                console.log(response.data);
+                if(response.data === true){
+                window.location.href = "http://localhost:8000/browser/www/index.html";
+                }
+                else{
+                    location.reload();
+                }
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
+    };
 })
 
 /*  ---------------------------------------------------

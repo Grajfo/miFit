@@ -45,7 +45,7 @@
     <header class="header-section">
         <div class="container">
             <div class="logo">
-                <a href="./index.html">
+                <a href="./prijava.html">
                     <img src="img/logo.png" alt="">
                 </a>
             </div>
@@ -82,7 +82,7 @@
                                     <h2>Prijava</h2>
                                     <p>Vnesi elektronski naslov in geslo</p>
                                 </div>
-                                <form action="#" class="register-form">
+                                <form name="RegForm" action ="./index.html" class="register-form" onsubmit="return LoginPreveri()" method="GET">
                                     <div class="row">     
                                         <div class="col-lg-6">
                                             <label for="email">Elektronski naslov:</label>
@@ -91,9 +91,7 @@
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo:</label>
                                             <input type="text" id="geslo" name="geslo" ng-model="formData.geslo">
-                                        </div>
-
-                                                                            
+                                        </div>                                           
                                     </div>
                                     <button type="submit" ng-click="preveriUporabnika()" class="register-btn">Potrdi</button>
                                 </form>
