@@ -1,4 +1,5 @@
 var hrana = angular.module("hrana", []);
+var uporabniskiRacun = angular.module("uporabniskiRacun", []);
 
 hrana.controller("hranaController", function($scope, $http) {
     $scope.formData = {};
@@ -55,6 +56,24 @@ hrana.controller("hranaController", function($scope, $http) {
     };
 })
 
+uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http) {
+    $scope.formData = {};
+    $scope.dodajUporabniskiRacun = function() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/uporabniskiRacun/',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
+                $scope.formData = {}
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
+    };
+})
 
 /*  ---------------------------------------------------
     Template Name: Gutim

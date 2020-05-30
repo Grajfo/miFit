@@ -33,7 +33,7 @@ exports.addUporabniskiRacun = async(req, res) =>
         const newuporabniskiRacun = 
         {
             email: req.body.email,       
-            geslo: req.bo.geslo         
+            geslo: req.body.geslo         
         };
 
         if (!newuporabniskiRacun.email|| !newuporabniskiRacun.geslo)
