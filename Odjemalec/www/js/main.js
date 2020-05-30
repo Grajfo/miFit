@@ -1,5 +1,6 @@
 var hrana = angular.module("hrana", []);
 var uporabniskiRacun = angular.module("uporabniskiRacun", []);
+var vaja = angular.module("vaja", []);
 
 hrana.controller("hranaController", function($scope, $http) {
     $scope.formData = {};
@@ -85,6 +86,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                 console.log(response.data);
                 if(response.data === true){
                     window.location.href = "http://localhost:8000/browser/www/index.html";
+                 
                 }
                 else{
                     location.reload();
@@ -93,6 +95,63 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             function(error) {
                 alert(error.data + "napaka");
             };
+    };
+})
+
+
+
+vaja.controller("vajaController", function($scope, $http) {
+    $scope.formData = {};
+
+    $http.get('http://localhost:3000/vaja/')
+        .then(function(response) {
+            $scope.vseVaje = response.data;
+        }), 
+        function(error) {
+            alert("napaka" + error.data);
+        };
+
+    $scope.pridobiVaje = function(id) {
+        $http.get('http://localhost:3000/vaja/' + id)
+            .then(function(response) {
+                $('#details').show();
+                $scope.details = response.data;
+                console.log(response.data);
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
+    };
+
+    $scope.dodajVajo = function() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/vaja/',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
+                $scope.formData = {}
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
+    };
+
+    $scope.izbrisiVaje = function(id) {
+        $http.delete('http://localhost:3000/vaja/' + id)
+            .then(function(response) {
+                $scope.vaja = response.data;
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert('napaka' + error.data);
+            };
+    };
+    $scope.zapri = function() {
+        $('#details').hide();
     };
 })
 

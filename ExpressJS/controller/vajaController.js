@@ -8,6 +8,20 @@ exports.vseVaje = async(req, res) => {
            res.status(500).json(error);
           }}
 
+
+exports.enaVaja = async(req, res) => 
+{
+   try 
+   {    
+        const vaja = await new Vaja().where('id', req.params.id).fetch();
+        return res.json(vaja.toJSON());
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'id ne obstaja'});
+   }
+};
+
 exports.dodajVajo = async(req, res) => {
     try {  
         const { naziv, opis, st_ponovitev,st_serij,poraba_kalorij,video_vaje,misicnaSkupina_id} = req.body;
