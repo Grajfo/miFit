@@ -1,4 +1,5 @@
 const uporabniskiRacun = require('../models/uporabniskiRacun');
+const bcrypt = require('bcrypt');
 
 exports.vsiUporabniskiRacuni = async(req, res) => 
 {
@@ -31,9 +32,12 @@ exports.aliobstaja =  async(req, res) =>
     try 
    {
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
-        uporabnikivsi = vsiUporabniskiRacuni.toJSON()
-        const uporabnikObstaja = uporabnikivsi.some(u => u.geslo === req.body.geslo && u.email === req.body.email);
-        return res.json(uporabnikObstaja);
+        const uporabnikivsi = vsiUporabniskiRacuni.toJSON()
+        const uporabnikObstaja = uporabnikivsi.filter(u => u.email === req.body.email);
+
+        //console.log(uporabnikObstaja[0].geslo)
+        const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo)
+        return res.json(geslo);
    } 
    catch (err) 
    {
@@ -45,21 +49,29 @@ exports.addUporabniskiRacun = async(req, res) =>
 {
     try
     {
-        const newuporabniskiRacun = 
-        {
-            email: req.body.email,       
-            geslo: req.body.geslo         
-        };
-
-        if (!newuporabniskiRacun.email|| !newuporabniskiRacun.geslo)
-        {
-            return res.status(400).json({ msg: 'Nekatera polja so prazna!' });
+        const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
+        const poisciEmail = vsiUporabniskiRacuni.toJSON().some(e => e.email === req.body.email);
+        console.log(poisciEmail)
+        if (poisciEmail === true){
+            return res.status(400).json({ msg: 'EMAIL ZE OBSTAJA!' });
         }
-        else
-        {
-            const shrani = await new uporabniskiRacun().save(newuporabniskiRacun);
-            return res.json({message: 'Nov Uporabniski Racun je vnesen!'}); 
-        } 
+        else if (poisciEmail === false){
+            const newuporabniskiRacun = 
+            {
+                email: req.body.email,       
+                geslo: bcrypt.hashSync(req.body.geslo, 10)     
+            };
+
+            if (!newuporabniskiRacun.email|| !newuporabniskiRacun.geslo)
+            {
+                return res.status(400).json({ msg: 'Nekatera polja so prazna!' });
+            }
+            else
+            {
+                const shrani = await new uporabniskiRacun().save(newuporabniskiRacun);
+                return res.json({message: 'Nov Uporabniski Racun je vnesen!'}); 
+            } 
+        }
     }
     catch(err)
     {
