@@ -1,98 +1,203 @@
-const hrana = angular.module("hrana", []);
+var hrana = angular.module("hrana", []);
 
 hrana.controller("hranaController", function($scope, $http) {
-    $scope.formData = {};   
-    // če hočeš da dela na andorid emulatorju morš dat svoj  ip namets local host
-    
-    if (navigator.connection.type === 'none') {
-        alert('there is no internet')
-        $scope.vsahrana = JSON.parse(localStorage.getItem('vsaHrana'));
-    }
-    else {
-        $http.get('localhost:3000/hrana/')
+    $scope.formData = {};
+
+    $http.get('http://localhost:3000/hrana/')
         .then(function(response) {
-            allfood = JSON.parse(localStorage.getItem('vsaHrana'));
-            if (allfood == null){
-                localStorage.setItem("vsaHrana", JSON.stringify(response.data));
-                allfood = JSON.parse(localStorage.getItem('vsaHrana'));
-            }
             $scope.vsahrana = response.data;
-            stevilo = allfood.length - response.data.length
-            console.log(stevilo)
-            if (stevilo > 0){
-                reversedFood = allfood.reverse();
-                for (i = 0; i < stevilo; i++){
-                    $scope.formData = reversedFood[i]
-                    $http({method: 'POST',url: 'localhost:3000/hrana/',data: JSON.stringify($scope.formData)})
-                }
-                $scope.formData = {};
-                location.reload();
-            }         
-        })
-        .catch(function(error) {
-            console.log('napaka ' + error);           
-        });
-    }
+        }), 
+        function(error) {
+            alert("napaka" + error.data);
+        };
 
     $scope.pridobiHrano = function(id) {
-        if (navigator.connection.type === 'none') {
-            hranaOne = JSON.parse(localStorage.getItem('vsaHrana'));
-            $('#details').show();
-            $scope.details = hranaOne.find(h => h.id === id)
-        }
-        else {
-        $http.get('localhost:3000/hrana/' + id)
+        $http.get('http://localhost:3000/hrana/' + id)
             .then(function(response) {
                 $('#details').show();
                 $scope.details = response.data;
-            })
-            .catch(function(error) {
-                console.log('napaka ' + error);   
-            });
-        }
+                console.log(response.data);
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
     };
 
     $scope.dodajHrano = function() {
-        if (navigator.connection.type === 'none') {
-            vsahrana = JSON.parse(localStorage.getItem('vsaHrana'));
-
-            vsahrana.push($scope.formData)
-            $scope.formData = {}
-            localStorage.setItem("vsaHrana", JSON.stringify(vsahrana));
-            location.reload();
-        }
-        else {
-            $http({
-                method: 'POST',
-                url: 'localhost:3000/hrana/',
-                data: JSON.stringify($scope.formData)
-            })
-            .then(function() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/hrana/',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
                 $scope.formData = {}
+                console.log(response.data);
                 location.reload();
-            })
-            .catch(function(error) {
-                console.log("napaka" + error);
-            });
-        }
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
     };
 
-    $scope.izbrisiHrano = (id) => {
-        $http.delete('localhost:3000/hrana/' + id)
+    $scope.izbrisiHrano = function(id) {
+        $http.delete('http://localhost:3000/hrana/' + id)
             .then(function(response) {
-                if (navigator.connection.type !== 'none'){
-                    $scope.hrana = response.data;
-                    console.log($scope.hrana)
-                    localStorage.removeItem('vsaHrana')
-                    location.reload();
-                }
-            }) 
-            .catch(function(error) {
-                console.log('napaka ' + error.data);
-            });
+                $scope.hrana = response.data;
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert('napaka' + error.data);
+            };
     };
     $scope.zapri = function() {
         $('#details').hide();
     };
+})
 
-});
+
+/*  ---------------------------------------------------
+    Template Name: Gutim
+    Description: Gutim Fitness HTML Template
+    Author: Colorlib
+    Author URI: http://colorlib.com
+    Version: 1.0
+    Created: Colorlib
+---------------------------------------------------------  */
+
+'use strict';
+
+(function ($) {
+
+    /*------------------
+        Preloader
+    --------------------*/
+    $(window).on('load', function () {
+        $(".loader").fadeOut();
+        $("#preloder").delay(200).fadeOut("slow");
+
+        /*------------------
+            Gallery filter
+        --------------------*/
+        $('.gallery-controls li').on('click', function() {
+            $('.gallery-controls li').removeClass('active');
+            $(this).addClass('active');
+        });
+        if($('.gallery-filter').length > 0 ) {
+            var containerEl = document.querySelector('.gallery-filter');
+            var mixer = mixitup(containerEl);
+        }
+
+    });
+
+    /*------------------
+        Background Set
+    --------------------*/
+    $('.set-bg').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });
+
+    /*------------------
+		Navigation
+	--------------------*/
+    $(".mobile-menu").slicknav({
+        prependTo: '#mobile-menu-wrap',
+        allowParentLinks: true
+    });
+
+    /*------------------
+		Menu Hover
+	--------------------*/
+    $(".header-section .nav-menu .mainmenu ul li").on('mousehover', function() {
+        $(this).addClass('active');
+    });
+    $(".header-section .nav-menu .mainmenu ul li").on('mouseleave', function() {
+        $('.header-section .nav-menu .mainmenu ul li').removeClass('active');
+    });
+
+    /*------------------------
+		Class Slider
+    ----------------------- */
+    $(".classes-slider").owlCarousel({
+        items: 3,
+        dots: true,
+        autoplay: true,
+        loop: true,
+        smartSpeed: 1200,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            768: {
+                items: 3,
+            },
+            992: {
+                items: 3,
+            }
+        }
+    });
+
+    /*------------------------
+		Testimonial Slider
+    ----------------------- */
+    $(".testimonial-slider").owlCarousel({
+        items: 1,
+        dots: false,
+        autoplay: true,
+        loop: true,
+        smartSpeed: 1200,
+        nav: true,
+        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+    });
+
+    /*------------------
+        Magnific Popup
+    --------------------*/
+    $('.video-popup').magnificPopup({
+        type: 'iframe'
+    });
+
+    /*------------------
+        About Counter Up
+    --------------------*/
+    $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+            $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+    /*------------------
+       Schedule Filter
+    --------------------*/
+    $('.nav-controls ul li').on('click', function() {
+        var tsfilter = $(this).data('tsfilter');
+        $('.nav-controls ul li').removeClass('active');
+        $(this).addClass('active');
+        
+        if(tsfilter == 'all') {
+            $('.schedule-table').removeClass('filtering');
+            $('.ts-item').removeClass('show');
+        } else {
+            $('.schedule-table').addClass('filtering');
+        }
+        $('.ts-item').each(function(){
+            $(this).removeClass('show');
+            if($(this).data('tsmeta') == tsfilter) {
+                $(this).addClass('show');
+            }
+        });
+    });
+
+})(jQuery);
+
+
+
+;
+
