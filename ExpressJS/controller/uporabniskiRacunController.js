@@ -51,7 +51,6 @@ exports.addUporabniskiRacun = async(req, res) =>
     {
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
         const poisciEmail = vsiUporabniskiRacuni.toJSON().some(e => e.email === req.body.email);
-        console.log(poisciEmail)
         if (poisciEmail === true){
             return res.status(400).json({ msg: 'EMAIL ZE OBSTAJA!' });
         }
