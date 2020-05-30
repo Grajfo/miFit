@@ -26,6 +26,21 @@ exports.enUporabniskiRacun =  async(req, res) =>
    }
 };
 
+exports.aliobstaja =  async(req, res) => 
+{
+    try 
+   {
+        const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
+        uporabnikivsi = vsiUporabniskiRacuni.toJSON()
+        const uporabnikObstaja = uporabnikivsi.some(u => u.geslo === req.body.geslo && u.email === req.body.email);
+        return res.json(uporabnikObstaja);
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'ne obstaja'});        
+   }
+};
+
 exports.addUporabniskiRacun = async(req, res) => 
 {
     try
