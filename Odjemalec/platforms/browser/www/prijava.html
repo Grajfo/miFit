@@ -82,7 +82,7 @@
                                     <h2>Prijava</h2>
                                     <p>Vnesi elektronski naslov in geslo</p>
                                 </div>
-                                <form name="RegForm" action ="#" class="register-form" method="GET">
+                                <form action="#" class="register-form">
                                     <div class="row">     
                                         <div class="col-lg-6">
                                             <label for="email">Elektronski naslov:</label>
@@ -91,9 +91,11 @@
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo:</label>
                                             <input type="text" id="geslo" name="geslo" ng-model="formData.geslo">
-                                        </div>                                           
+                                        </div>
+
+                                                                            
                                     </div>
-                                    <button type="submit" ng-click="preveriUporabnika()" class="register-btn">Potrdi</button>
+                                    <button type="submit" ng-click="LoginPreveri()" class="register-btn">Potrdi</button>
                                 </form>
 <br></br><div class="section-title">
                                 <h2><a href="./classes.html" center><p>Registracija</p></a></h2></div>

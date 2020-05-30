@@ -84,7 +84,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                 $scope.formData = {}
                 console.log(response.data);
                 if(response.data === true){
-                window.location.href = "http://localhost:8000/browser/www/index.html";
+                    window.location.href = "http://localhost:8000/browser/www/index.html";
                 }
                 else{
                     location.reload();
