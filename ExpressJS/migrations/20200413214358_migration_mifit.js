@@ -25,7 +25,6 @@ exports.up = function(knex) {
             table.integer('uporabnik_id').references('id').inTable('Uporabnik');
             table.integer('kategirja_id').references('id').inTable('Hrana');
             table.integer('hrana_id').references('id').inTable('Kategorija_recepta');
-
         }
         ).createTable('Hrana', (table) => {
             table.increments('id').primary();

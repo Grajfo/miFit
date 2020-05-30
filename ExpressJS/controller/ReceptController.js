@@ -27,6 +27,36 @@ exports.enRecept = async(req, res) =>
    }
 };
 
+exports.poisciReceptKategorija = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['kategorija_recepta'] });
+        receptivsi = vsiRecepti.toJSON()
+        recepti = await receptivsi.filter(x => x.kategorija_recepta.ime_kategorije === req.params.imeKategorije)
+        return res.json(recepti);
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err.message);
+    }
+};
+
+exports.poisciReceptTip = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['kategorija_recepta'] });
+        receptivsi = vsiRecepti.toJSON()
+        recepti = await receptivsi.filter(x => x.kategorija_recepta.tip === req.params.tip)
+        return res.json(recepti);
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err.message);
+    }
+};
+
 exports.dodajRecept = async(req, res) => 
 {
     try
