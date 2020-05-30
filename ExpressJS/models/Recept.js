@@ -10,7 +10,7 @@ const Recept = ks.Model.extend({
         return this.belongsTo(require('./hrana'), 'hrana_id');
     },
     kategorija_recepta: function() {
-        return this.belongsTo(require('./Kategorija_recepta'), 'kategorija_id');
+        return this.belongsTo(require('./Kategorija_recepta'), 'kategirja_id');
     }
 });
 

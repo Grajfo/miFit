@@ -4,7 +4,7 @@ const Kategorija_recepta = ks.Model.extend({
     tableName: 'Kategorija_recepta',
     idAttribute: 'id',
     Recept: function() {
-        return this.hasMany(require('./Recept'), 'kategorija_id');
+        return this.hasMany(require('./Recept'), 'kategirja_id');
     }
 });
 
