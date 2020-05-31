@@ -9,6 +9,20 @@ exports.vsiTreningi = async(req, res) => {
         res.status(500).json(error);
         } }
 
+
+exports.enTrening = async(req, res) => 
+{
+   try 
+   {    
+        const vaja = await new Trening().where('id', req.params.id).fetch();
+        return res.json(vaja.toJSON());
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'id ne obstaja'});
+   }
+};
+
 exports.dodajTrening = async(req, res) => {
     try {  
         const novtrening = 
@@ -48,13 +62,14 @@ exports.posodobiTrening = async(req, res) => {
     try {
         if(true)
         {           
-            trening = await new Trening().where('id',req.body.id).fetch({require:true});
+            trening = await new Trening().where('id',req.params.id).fetch({require:true});
             trening.save({
                 naziv:req.body.naziv,
                 tip:req.body.tip,
                 opis:req.body.opis,
                 datum_treninga:req.body.datum_treninga.split('T')[0],
-             
+                uporabnik_id:req.body.uporabnik_id,
+                vaja_id:req.body.vaja_id
                  
             },{patch:true})                     
                return res.json('Uspesno spremenjen trening');     

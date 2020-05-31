@@ -50,7 +50,7 @@ exports.posodobiVajo = async(req, res) => {
     try {
         if(true)
         {
-            vaja = await new Vaja().where('id',req.body.id).fetch({require:true});
+            vaja = await new Vaja().where('id',req.params.id).fetch({require:true});
             vaja.save({
                 naziv:req.body.naziv,
                 opis:req.body.opis,
