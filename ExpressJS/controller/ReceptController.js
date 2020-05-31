@@ -5,7 +5,7 @@ exports.vsiRecepti = async(req, res) =>
 {
     try
     {
-        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana', 'kategorija_recepta','uporabnik'] });
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana'] });
         return res.json(vsiRecepti.toJSON());
     } 
     catch (err)
@@ -36,7 +36,10 @@ exports.dodajRecept = async(req, res) =>
             ime: req.body.ime,
             opis: req.body.opis,
             kalorije: req.body.kalorije,
-            hranilne_vrednosti: req.body.hranilne_vrednosti
+            hranilne_vrednosti: req.body.hranilne_vrednosti,
+            uporabnik_id: req.body.uporabnik_id,
+            kategirja_id: req.body.kategirja_id,
+            hrana_id: req.body.hrana_id
         };
 
         if (!novrecept.ime || !novrecept.opis || !novrecept.kalorije || !novrecept.hranilne_vrednosti)
@@ -69,7 +72,10 @@ exports.posodobiRecept = async(req, res) =>
                         ime: req.body.ime,
                         opis: req.body.opis,
                         kalorije: req.body.kalorije,
-                        hranilne_vrednosti: req.body.hranilne_vrednosti
+                        hranilne_vrednosti: req.body.hranilne_vrednosti,
+                        uporabnik_id: req.body.uporabnik_id,
+                        kategirja_id: req.body.kategirja_id,
+                        hrana_id: req.body.hrana_id
                     }, {patch:true}
                 );
                 return res.json({message: 'recept posodobljena'});          

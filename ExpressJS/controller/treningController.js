@@ -11,8 +11,19 @@ exports.vsiTreningi = async(req, res) => {
 
 exports.dodajTrening = async(req, res) => {
     try {  
+        const novtrening = 
+        {
+            naziv: req.body.naziv,       
+            tip: req.body.tip,       
+            opis: req.body.opis,  
+            datum_treninga: req.body.datum_treninga.split('T')[0],
+            vaja_id: req.body.vaja_id,
+            uporabnik_id: req.body.uporabnik_id
+        };
+
+
         const { naziv, tip, opis,datum_treninga,vaja_id} = req.body;
-        const nov = await new Trening().save({  naziv, tip, opis,datum_treninga,vaja_id});
+        const nov = await new Trening().save(novtrening);
         res.json('Dodano');
      } 
  catch (error)
@@ -42,7 +53,7 @@ exports.posodobiTrening = async(req, res) => {
                 naziv:req.body.naziv,
                 tip:req.body.tip,
                 opis:req.body.opis,
-                datum_treninga:req.body.datum_treninga,
+                datum_treninga:req.body.datum_treninga.split('T')[0],
              
                  
             },{patch:true})                     

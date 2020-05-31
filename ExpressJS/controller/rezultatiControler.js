@@ -34,7 +34,7 @@ exports.addRezultat = async(req, res) =>
         {
             naziv: req.body.naziv,       
             uspesnost: req.body.uspesnost,   
-            datum_rezultata: req.body.datum_rezultata,
+            datum_rezultata: req.body.datum_rezultata.split('T')[0],
             uporabnik_id: req.body.uporabnik_id
         };
 
@@ -57,18 +57,18 @@ exports.addRezultat = async(req, res) =>
 
 
 exports.updateRezultat = async(req, res) => 
-{ 
+{
     try
     {
         if(req.params.idRezultati == req.body.id)
         {
-            if(typeof req.body.naziv === 'string' && req.body.naziv !== "" && typeof req.body.uspesnost === 'string' && typeof req.body.datum_rezultata === 'string' && typeof req.body.uporabnik_id === 'number')
+            if(typeof req.body.naziv === 'string' && req.body.naziv !== "")
             {
                 up = await new rezultat().where('id', req.body.id).save(
                     {
                         naziv: req.body.naziv,       
                         uspesnost: req.body.uspesnost,   
-                        datum_rezultata: req.body.datum_rezultata,
+                        datum_rezultata: req.body.datum_rezultata.split('T')[0],
                         uporabnik_id: req.body.uporabnik_id
                     },
                     {patch:true}
@@ -82,7 +82,7 @@ exports.updateRezultat = async(req, res) =>
         }
         else
         {
-            return res.status(400).json({msg: 'ID ('+req.params.idRezultati+') ne obstaja'});
+            return res.status(400).json({msg: 'ID ('+req.params.idRezultati+' / '+req.body.id+') ne obstaja'});
         }
     }
     catch(err)

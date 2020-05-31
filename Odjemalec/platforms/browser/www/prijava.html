@@ -7,9 +7,8 @@
     <meta name="keywords" content="Gutim, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
-    <meta name="format-detection" content="telephone=no">
+	<link href="img/logo4-mifit.png" rel="icon">
+	 <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <script type="text/javascript" src="cordova.js"></script>
@@ -18,9 +17,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
+
 	
 	
-    <title>Gutim | Template</title>
+    <title>miFit | Prijava</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
@@ -46,7 +46,7 @@
         <div class="container">
             <div class="logo">
                 <a href="./prijava.html">
-                    <img src="img/logo.png" alt="">
+                    <img src="img/logo-mifit.png" alt="">
                 </a>
             </div>
            
@@ -62,7 +62,6 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
                         <h2>Prijava</h2>
-                        
                     </div>
                 </div>
             </div>
@@ -85,20 +84,20 @@
                                 <form action="#" class="register-form">
                                     <div class="row">     
                                         <div class="col-lg-6">
-                                            <label for="email">Elektronski naslov:</label>
+                                            <label for="email">e-mail ali uporabniško ime:</label>
                                             <input type="text" id="email" name="email" ng-model="formData.email">
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo:</label>
-                                            <input type="text" id="geslo" name="geslo" ng-model="formData.geslo">
+                                            <input type="password" id="geslo" name="geslo" ng-model="formData.geslo">
                                         </div>
-
-                                                                            
                                     </div>
                                     <button type="submit" ng-click="LoginPreveri()" class="register-btn">Potrdi</button>
                                 </form>
-<br></br><div class="section-title">
-                                <h2><a href="./classes.html" center><p>Registracija</p></a></h2></div>
+                                <br></br>
+                                <div class="section-title">
+                                <h2><a href="./registracija.html" center><p>Registracija</p></a></h2>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -113,41 +112,11 @@
     </section>
     <!-- Register Section End -->
 
-  
+  <br></br> <br></br> <br></br>
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="contact-option">
-                        <span>Phone</span>
-                        <p>(123) 118 9999 - (123) 118 9999</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-option">
-                        <span>Address</span>
-                        <p>72 Kangnam, 45 Opal Point Suite 391</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-option">
-                        <span>Email</span>
-                        <p>contactcompany@Gutim.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="subscribe-option set-bg" data-setbg="img/footer-signup.jpg">
-                <div class="so-text">
-                    <h4>Subscribe To Our Mailing List</h4>
-                    <p>Sign up to receive the latest information </p>
-                </div>
-                <form action="#" class="subscribe-form">
-                    <input type="text" placeholder="Enter Your Mail">
-                    <button type="submit"><i class="fa fa-send"></i></button>
-                </form>
-            </div>
             <div class="copyright-text">
                 <ul>
                     <li><a href="#">Term&Use</a></li>
