@@ -60,11 +60,11 @@ exports.updateRezultat = async(req, res) =>
 {
     try
     {
-        if(req.params.idRezultati == req.body.id)
+        if(true)
         {
             if(typeof req.body.naziv === 'string' && req.body.naziv !== "")
             {
-                up = await new rezultat().where('id', req.body.id).save(
+                up = await new rezultat().where('id', req.params.idRezultati).save(
                     {
                         naziv: req.body.naziv,       
                         uspesnost: req.body.uspesnost,   
