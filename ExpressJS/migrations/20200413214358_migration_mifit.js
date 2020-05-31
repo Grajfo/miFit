@@ -24,6 +24,7 @@ exports.up = function(knex) {
             table.string('hrana_opis').notNullable()
             table.decimal('kalorije').notNullable();
             table.string('hranilne_vrednosti').notNullable();
+            table.integer('uporabnik_id').references('id').inTable('Uporabnik');
             table.integer('kategirja_id').references('id').inTable('Kategorija_recepta');
         }
         ).createTable('Hrana', (table) => {
@@ -51,8 +52,7 @@ exports.up = function(knex) {
             table.string('tip').notNullable();
             table.string('slika').nullable();
         }
-        )
-        .createTable('Vaja', (table) => {
+        ).createTable('Vaja', (table) => {
             table.increments('id').primary();
             table.string('naziv').notNullable();
             table.string('opis').notNullable();
