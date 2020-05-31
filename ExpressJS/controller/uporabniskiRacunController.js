@@ -32,12 +32,14 @@ exports.aliobstaja =  async(req, res) =>
     try 
    {
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
-        const uporabnikivsi = vsiUporabniskiRacuni.toJSON()
-        const uporabnikObstaja = uporabnikivsi.filter(u => u.email === req.body.email);
-
-        //console.log(uporabnikObstaja[0].geslo)
-        const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo)
-        return res.json(geslo);
+        const uporabnikObstaja = vsiUporabniskiRacuni.toJSON().filter(u => u.email === req.body.email);
+        const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo);
+        if (geslo === true){
+            return res.json(uporabnikObstaja[0].vloga);
+        }
+        else{
+            return res.json(false);
+        }
    } 
    catch (err) 
    {
@@ -61,7 +63,7 @@ exports.addUporabniskiRacun = async(req, res) =>
                 geslo: bcrypt.hashSync(req.body.geslo, 10)     
             };
 
-            if (!newuporabniskiRacun.email|| !newuporabniskiRacun.geslo)
+            if (!newuporabniskiRacun.email || !newuporabniskiRacun.geslo)
             {
                 return res.status(400).json({ msg: 'Nekatera polja so prazna!' });
             }

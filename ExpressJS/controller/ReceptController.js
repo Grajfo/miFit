@@ -5,7 +5,7 @@ exports.vsiRecepti = async(req, res) =>
 {
     try
     {
-        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['hrana'] });
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['kategorija_recepta'] });
         return res.json(vsiRecepti.toJSON());
     } 
     catch (err)
@@ -18,7 +18,7 @@ exports.enRecept = async(req, res) =>
 {
    try 
    {    
-        const recept = await new Recept().where('id', req.params.idRecept).fetch({ withRelated: ['hrana', 'kategorija_recepta', 'uporabnik'] });
+        const recept = await new Recept().where('id', req.params.idRecept).fetch({ withRelated: ['kategorija_recepta', 'uporabnik'] });
         return res.json(recept.toJSON());
    } 
    catch (err) 
@@ -35,14 +35,14 @@ exports.dodajRecept = async(req, res) =>
         {
             ime: req.body.ime,
             opis: req.body.opis,
+            hrana_opis: req.body.hrana_opis,
             kalorije: req.body.kalorije,
             hranilne_vrednosti: req.body.hranilne_vrednosti,
             uporabnik_id: req.body.uporabnik_id,
             kategirja_id: req.body.kategirja_id,
-            hrana_id: req.body.hrana_id
         };
 
-        if (!novrecept.ime || !novrecept.opis || !novrecept.kalorije || !novrecept.hranilne_vrednosti)
+        if (!novrecept.ime || !novrecept.opis || !novrecept.kalorije || !novrecept.hranilne_vrednosti || !novrecept.hrana_opis)
         {
             return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
         }
@@ -62,30 +62,29 @@ exports.posodobiRecept = async(req, res) =>
 {
     try
     {
-        if(req.params.idRecept == req.body.id)
+        if(typeof req.body.ime === 'string' && typeof req.body.opis === 'string' && typeof req.body.hrana_opis === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.opis !== "" && req.body.hrana_opis !== "" && req.body.hranilne_vrednosti !== "")                 
         {
-            if(typeof req.body.ime === 'string' && typeof req.body.opis === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.opis !== "" && req.body.hranilne_vrednosti !== "")                 
-            {
-                recept = await new Recept().where('id', req.body.id).save
-                (
-                    {
-                        ime: req.body.ime,
-                        opis: req.body.opis,
-                        kalorije: req.body.kalorije,
-                        hranilne_vrednosti: req.body.hranilne_vrednosti,
-                        uporabnik_id: req.body.uporabnik_id,
-                        kategirja_id: req.body.kategirja_id,
-                        hrana_id: req.body.hrana_id
-                    }, {patch:true}
-                );
-                return res.json({message: 'recept posodobljena'});          
+            recept = await new Recept().where('id', req.body.id).save
+            (
+                {
+                    ime: req.body.ime,
+                    opis: req.body.opis,
+                    hrana_opis: req.body.hrana_opis,
+                    kalorije: req.body.kalorije,
+                    hranilne_vrednosti: req.body.hranilne_vrednosti,
+                    uporabnik_id: req.body.uporabnik_id,
+                    kategirja_id: req.body.kategirja_id,
+                    hrana_id: req.body.hrana_id
+                }, {patch:true}
+            );
+            return res.json({message: 'recept posodobljena'});          
 
-            }
-            else
-            {
-                return res.status(404).json({msg: 'podatki niso pravilni'});
-            }
         }
+        else
+        {
+            return res.status(404).json({msg: 'podatki niso pravilni'});
+        }
+
     }
     catch(err)
     {
