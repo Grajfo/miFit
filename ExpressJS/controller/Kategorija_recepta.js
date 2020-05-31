@@ -57,24 +57,21 @@ exports.posodobi_Kategorija_recepta = async(req, res) =>
 {
     try
     {
-        if(req.params.idKatergorija_recepta == req.body.id)
+        if(typeof req.body.ime_kategorije === 'string' && typeof req.body.tip === 'string' && req.body.ime_kategorije !== "" && req.body.tip !== "")                 
         {
-            if(typeof req.body.ime_kategorije === 'string' && typeof req.body.tip === 'string' && req.body.ime_kategorije !== "" && req.body.tip !== "")                 
-            {
-                kategorija = await new Kategorija_recepta().where('id', req.body.id).save
-                (
-                    {
-                        ime_kategorije: req.body.ime_kategorije,
-                        tip: req.body.tip
-                    }, {patch:true}
-                );
-                return res.json({message: 'kategorija posodobljena'});          
+            kategorija = await new Kategorija_recepta().where('id', req.params.kategirja_id).save
+            (
+                {
+                    ime_kategorije: req.body.ime_kategorije,
+                    tip: req.body.tip
+                }, {patch:true}
+            );
+            return res.json({message: 'kategorija posodobljena'});          
 
-            }
-            else
-            {
-                return res.status(404).json({msg: 'podatki niso pravilni'});
-            }
+        }
+        else
+        {
+            return res.status(404).json({msg: 'podatki niso pravilni'});
         }
     }
     catch(err)

@@ -46,7 +46,7 @@ exports.izbrisiTrening = async(req, res) => {
 
 exports.posodobiTrening = async(req, res) => {
     try {
-        if(req.params.id == req.body.id)
+        if(true)
         {           
             trening = await new Trening().where('id',req.body.id).fetch({require:true});
             trening.save({

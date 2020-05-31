@@ -27,6 +27,36 @@ exports.enRecept = async(req, res) =>
    }
 };
 
+exports.poisciReceptePoTipu = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['kategorija_recepta'] });
+        const vsiRecepteGledeNaTip = vsiRecepti.toJSON().filter(u => u.kategorija_recepta.tip === req.params.tip);
+        
+        return res.json(vsiRecepteGledeNaTip);
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err);
+    }
+};
+
+exports.poisciReceptePoKategoriji = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().fetchAll({ withRelated: ['kategorija_recepta'] });
+        const vsiRecepteGledeNaKategorijo = vsiRecepti.toJSON().filter(u => u.kategorija_recepta.ime_kategorije === req.params.kategorija);
+        
+        return res.json(vsiRecepteGledeNaKategorijo);
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err);
+    }
+};
+
 exports.dodajRecept = async(req, res) => 
 {
     try
@@ -64,7 +94,7 @@ exports.posodobiRecept = async(req, res) =>
     {
         if(typeof req.body.ime === 'string' && typeof req.body.opis === 'string' && typeof req.body.hrana_opis === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.opis !== "" && req.body.hrana_opis !== "" && req.body.hranilne_vrednosti !== "")                 
         {
-            recept = await new Recept().where('id', req.body.id).save
+            recept = await new Recept().where('id', req.params.idRecept).save
             (
                 {
                     ime: req.body.ime,

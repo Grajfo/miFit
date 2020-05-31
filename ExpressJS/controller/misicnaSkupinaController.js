@@ -34,7 +34,7 @@ exports.izbrisiMisicno = async(req, res) => {
 
 exports.posodobiMisicno = async(req, res) => {
     try {
-        if(req.params.id == req.body.id)
+        if(true)
         {           
             misicna = await new MisicnaSkupina().where('id',req.body.id).fetch({require:true});
             misicna.save({
