@@ -87,11 +87,20 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
           })
             .then(function(response) {
                 $scope.formData = {}
-                if (response.data.id !== 0){
+                if (response.data.vloga === 0){
+                    sessionStorage.setItem("uid", JSON.stringify(response.data.id));
+                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
                     window.location = "index.html";
                 }
+                else if (response.data.vloga === 1){
+                    sessionStorage.setItem("uid", JSON.stringify(response.data));
+                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                   // window.location = "index.html";
+                    //admin stran
+
+                }
                 else{
-                    location.reload()
+                  //  location.reload()
                 }
             }), 
             function(error) {
@@ -99,7 +108,6 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             };
     };
 })
-
 
 rezultati.controller("rezultatiController", function($scope, $http) {
     $scope.formData = {};
