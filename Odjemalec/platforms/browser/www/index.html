@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html ng-app="app" lang="zxx">
 
 <head>
     <meta charset="UTF-8">
@@ -18,26 +18,35 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
 
-	    <script type="text/javascript" charset="utf-8">
-            document.addEventListener("deviceready", onDeviceReady, false);
-        
 
-            function onDeviceReady() {
-                var usr = "12345";
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script> 
+        <script data-require="angular.js@1.1.5" data-semver="1.1.5" src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
+        <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+
+        <script>   /// Obvezno: <html ng-app="app">     <body ng-controller="Ctrl">    in te 3 linke zgori ^^^
+            angular.module('app', ['ngStorage']).
+
+            controller('Ctrl', function($scope, $localStorage, $sessionStorage){
                 
-                window.localStorage.setItem("uid", "12345");
+                $scope.$storage = $localStorage.$default({
+                    uid: 0,
+                    isAdmin: false
+                });
+                $scope.$storageSes = $sessionStorage.$default({
+                    uidSes: 1,
+                    isAdminSes: false
+                });
+            });
+            
+            /*function getFromServer(){
+            $http.aliobstaja().success(function(res){
+                    $$scope.messages = JSON.parse(res);
+                    console.log(res);
+                });
+            }*/
 
-                /*
-                var value = window.localStorage.getItem("key");
-                // value is now equal to "value"
+        </script>
 
-                window.localStorage.removeItem("key");
-                window.localStorage.setItem("key2", "value2");
-                window.localStorage.clear();
-                // localStorage is now empty*/
-            }
-        
-            </script>
 	
     <title>miFit | Home</title>
 
@@ -54,7 +63,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-<body>
+<body ng-controller="Ctrl">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -93,7 +102,10 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="hero-text">
-                        <span>Žan & Jan & Ilija</span>
+                        <span>Žan & Jan & Ilija</span> 
+
+                        {{$storageSes.uidSes}} / {{ $storageSes.isAdminSes}}
+
                         <h1>MiFIT</h1>
                         <p>Ultimate app for Fitness and nutrition & healthy lifestyle. All Your Favourite Workouts here!<br />ST projekt</p>
                         <a href="./classes.html" class="primary-btn">Registracija</a>

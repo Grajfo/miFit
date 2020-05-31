@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html ng-app="app" lang="zxx">
 
 <head>
     <meta charset="UTF-8">
@@ -17,9 +17,28 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script> 
+        <script data-require="angular.js@1.1.5" data-semver="1.1.5" src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
+        <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+    
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-	
+        <script>   /// Obvezno: <html ng-app="app">     <body ng-controller="Ctrl">  in te 3 linke zgori ^^^
+            angular.module('app', ['ngStorage']).
+            
+            controller('Ctrl', function($scope, $localStorage, $sessionStorage){
+                $scope.$storage = $localStorage({
+                    uid: 3,
+                    isAdmin: false
+                });
+                $scope.$storage = $sessionStorage({
+                    uidSes: 4,
+                    isAdminSes: true
+                });
+            });
+        </script>
+
+<!--
 	    <script type="text/javascript" charset="utf-8">
             document.addEventListener("deviceready", onDeviceReady, false);
         
@@ -44,7 +63,7 @@
             }
 
         
-        </script>
+        </script>  -->
 	
     <title>miFit | Rezultati</title>
 
@@ -61,7 +80,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-<body>
+<body  ng-controller="Ctrl">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -109,8 +128,9 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
+    <!-- Breadcrumb Section End --></br></br></br>
 
+     {{$storage.uidSes}} / {{ $storage.isAdminSes}}
 
     <!-- Register Section Begin -->
 
