@@ -52,6 +52,7 @@ exports.addUporabniskiRacun = async(req, res) =>
     try
     {
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
+        console.log(vsiUporabniskiRacuni)
         const poisciEmail = vsiUporabniskiRacuni.toJSON().some(e => e.email === req.body.email);
         if (poisciEmail === true){
             return res.status(400).json({ msg: 'EMAIL ZE OBSTAJA!' });
@@ -60,7 +61,8 @@ exports.addUporabniskiRacun = async(req, res) =>
             const newuporabniskiRacun = 
             {
                 email: req.body.email,       
-                geslo: bcrypt.hashSync(req.body.geslo, 10)     
+                geslo: bcrypt.hashSync(req.body.geslo, 10),
+                vloga: false     
             };
 
             if (!newuporabniskiRacun.email || !newuporabniskiRacun.geslo)
@@ -93,7 +95,7 @@ exports.updateUporabniskiRacun = async(req, res) =>
                 up = await new uporabniskiRacun().where('id', req.body.id).save(
                     {
                         email: req.body.email,       
-                        geslo: req.body.geslo
+                        geslo: req.body.geslo,
                     },
                     {patch:true}
                 );
