@@ -91,7 +91,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                     window.location = "index.html";
                 }
                 else{
-                    window.reload()
+                    location.reload()
                 }
             }), 
             function(error) {
