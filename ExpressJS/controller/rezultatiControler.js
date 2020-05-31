@@ -60,30 +60,24 @@ exports.updateRezultat = async(req, res) =>
 {
     try
     {
-        if(true)
+        if(typeof req.body.naziv === 'string' && req.body.naziv !== "")
         {
-            if(typeof req.body.naziv === 'string' && req.body.naziv !== "")
-            {
-                up = await new rezultat().where('id', req.params.idRezultati).save(
-                    {
-                        naziv: req.body.naziv,       
-                        uspesnost: req.body.uspesnost,   
-                        datum_rezultata: req.body.datum_rezultata.split('T')[0],
-                        uporabnik_id: req.body.uporabnik_id
-                    },
-                    {patch:true}
-                );
-                return res.json({message: 'Rezultat je posodobljen'});          
-            }
-            else
-            {
-                return res.status(404).json({msg: 'Podatki niso pravilni'});
-            }
+            up = await new rezultat().where('id', req.params.idRezultati).save(
+                {
+                    naziv: req.body.naziv,       
+                    uspesnost: req.body.uspesnost,   
+                    datum_rezultata: req.body.datum_rezultata.split('T')[0],
+                    uporabnik_id: req.body.uporabnik_id
+                },
+                {patch:true}
+            );
+            return res.json({message: 'Rezultat je posodobljen'});          
         }
         else
         {
-            return res.status(400).json({msg: 'ID ('+req.params.idRezultati+' / '+req.body.id+') ne obstaja'});
+            return res.status(404).json({msg: 'Podatki niso pravilni'});
         }
+
     }
     catch(err)
     {

@@ -34,7 +34,7 @@ exports.aliobstaja =  async(req, res) =>
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
         const uporabnikObstaja = vsiUporabniskiRacuni.toJSON().filter(u => u.email === req.body.email);
         const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo);
-        console.log(geslo)
+       // console.log(geslo)
         if (geslo === true){
             return res.json({"vloga":uporabnikObstaja[0].vloga, "id": uporabnikObstaja[0].id});
         }
@@ -90,27 +90,20 @@ exports.updateUporabniskiRacun = async(req, res) =>
 {    
     try
     {
-        if(req.params.iduporabniskiRacun == req.body.id)
+        if(typeof req.body.email === 'string' && req.body.email !== "" && typeof req.body.geslo === 'string' && req.body.geslo !== "")
         {
-            if(typeof req.body.email === 'string' && req.body.email !== "" && typeof req.body.geslo === 'string' && req.body.geslo !== "")
-            {
-                up = await new uporabniskiRacun().where('id', req.body.id).save(
-                    {
-                        email: req.body.email,       
-                        geslo: req.body.geslo,
-                    },
-                    {patch:true}
-                );
-                return res.json({message: 'Uporabniski Racun je posodobljen'});          
-            }
-            else
-            {
-                return res.status(404).json({msg: 'Podatki niso pravilni'});
-            }
+            up = await new uporabniskiRacun().where('id', req.params.iduporabniskiRacun).save(
+                {
+                    email: req.body.email,       
+                    geslo: req.body.geslo,
+                },
+                {patch:true}
+            );
+            return res.json({message: 'Uporabniski Racun je posodobljen'});          
         }
         else
         {
-            return res.status(400).json({msg: 'ID ('+req.params.iduporabniskiRacun+') ne obstaja'});
+            return res.status(404).json({msg: 'Podatki niso pravilni'});
         }
     }
     catch(err)

@@ -48,7 +48,7 @@ exports.izbrisiVajo = async(req, res) => {
 
 exports.posodobiVajo = async(req, res) => {
     try {
-        if(req.params.id == req.body.id)
+        if(true)
         {
             vaja = await new Vaja().where('id',req.body.id).fetch({require:true});
             vaja.save({

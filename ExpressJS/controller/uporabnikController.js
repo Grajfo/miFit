@@ -62,29 +62,26 @@ exports.posodobiUporabnika = async(req, res) =>
 {
     try
     {
-        if(req.params.idUporabnik == req.body.id)
+        if(typeof req.body.ime === 'string' && req.body.ime !== "" && Object.values(spolEnum).includes(req.body.spol) && typeof req.body.starost === 'number' && typeof req.body.teza === 'number' && typeof req.body.visina === 'number' && typeof req.body.ciljna_teza === 'number')
         {
-            if(typeof req.body.ime === 'string' && req.body.ime !== "" && Object.values(spolEnum).includes(req.body.spol) && typeof req.body.starost === 'number' && typeof req.body.teza === 'number' && typeof req.body.visina === 'number' && typeof req.body.ciljna_teza === 'number')
-            {
-                up = await new Uporabnik().where('id', req.body.id).save(
-                    {
-                        ime:req.body.ime,
-                        priimek:req.body.priimek,
-                        spol:req.body.spol,
-                        starost:req.body.starost,
-                        teza:req.body.teza,
-                        visina:req.body.visina,
-                        ciljna_teza: req.body.ciljna_teza
-                    },
-                    {patch:true}
-                );
-                return res.json({message: 'uporabnik posodobljena'});          
-            }
-            else
-            {
-                return res.status(404).json({msg: 'podatki niso pravilni'});
-            }
+            up = await new Uporabnik().where('id', req.params.idUporabnik).save(
+                {
+                    ime:req.body.ime,
+                    priimek:req.body.priimek,
+                    spol:req.body.spol,
+                    starost:req.body.starost,
+                    teza:req.body.teza,
+                    visina:req.body.visina,
+                    ciljna_teza: req.body.ciljna_teza
+                },
+                {patch:true}
+            );
+            return res.json({message: 'uporabnik posodobljena'});          
         }
+        else
+        {
+            return res.status(404).json({msg: 'podatki niso pravilni'});
+        }   
     }
     catch(err)
     {

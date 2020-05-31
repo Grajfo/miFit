@@ -87,12 +87,11 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
           })
             .then(function(response) {
                 $scope.formData = {}
-                console.log(response.data);
-                if(response.data === true){
-                    window.location.href = "http://localhost:8000/browser/www/index.html";
+                if (response.data.id !== 0){
+                    window.location = "index.html";
                 }
                 else{
-                    location.reload();
+                    location.reload()
                 }
             }), 
             function(error) {

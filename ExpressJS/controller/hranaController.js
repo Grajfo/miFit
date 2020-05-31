@@ -27,6 +27,24 @@ exports.enaHrana = async(req, res) =>
    }
 };
 
+exports.pregledHraneGledeNaKalorije = async(req, res) => 
+{
+   try 
+   {    
+        const hrana = await new Hrana().fetchAll();
+        if(!req.body.stevilo1 || !req.body.stevilo2 || typeof req.params.st1 === 'number' || typeof req.params.st1 === 'number'){
+            const hranaGledeNaKalorije = hrana.toJSON().filter(u => u.kalorije >= req.params.st1 && u.kalorije <= req.params.st2);      
+            return res.json(hranaGledeNaKalorije);
+        }
+        else{
+            return res.status(404).json({msg: 'podatki niso bili pravilni'})
+        }
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'id ne obstaja'});
+   }
+};
 exports.dodajHrano = async(req, res) => 
 {
     try
@@ -58,25 +76,22 @@ exports.posodobiHrano = async(req, res) =>
 {
     try
     {
-        if(req.params.idHrana == req.body.id)
+        if(typeof req.body.ime === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.hranilne_vrednosti !== "")                 
         {
-            if(typeof req.body.ime === 'string' && typeof req.body.kalorije === 'number' && typeof req.body.hranilne_vrednosti === 'string' && req.body.ime !== "" && req.body.hranilne_vrednosti !== "")                 
-            {
-                hrana = await new Hrana().where('id', req.body.id).save
-                (
-                    {
-                        ime: req.body.ime,
-                        kalorije: req.body.kalorije,
-                        hranilne_vrednosti: req.body.hranilne_vrednosti
-                    }, {patch:true}
-                );
-                return res.json({message: 'hrana posodobljena'});          
+            hrana = await new Hrana().where('id', req.params.idHrana).save
+            (
+                {
+                    ime: req.body.ime,
+                    kalorije: req.body.kalorije,
+                    hranilne_vrednosti: req.body.hranilne_vrednosti
+                }, {patch:true}
+            );
+            return res.json({message: 'hrana posodobljena'});          
 
-            }
-            else
-            {
-                return res.status(404).json({msg: 'podatki niso pravilni'});
-            }
+        }
+        else
+        {
+            return res.status(404).json({msg: 'podatki niso pravilni'});
         }
     }
     catch(err)
