@@ -13,6 +13,19 @@ exports.vsiRezultati = async(req, res) =>
     }
 };
 
+exports.vsiRezultatiWhere = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new rezultat().where('uporabnik_id',req.params.id).fetchAll({require:true});
+        return res.json(vsiRecepti.toJSON());
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err);
+    }
+};
+
 exports.enRezultat =  async(req, res) => 
 {
     try 

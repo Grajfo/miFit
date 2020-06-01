@@ -12,6 +12,8 @@ var receptiAdmin = angular.module("receptiAdmin", []);
 
 hrana.controller("hranaController", function($scope, $http) {
     $scope.formData = {};
+    
+ 
 
     $http.get('http://localhost:3000/hrana/')
         .then(function(response) {
@@ -91,7 +93,6 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
           })
             .then(function(response) {
                 $scope.formData = {}
-                console.log(response.data);
                 window.location = "prijava.html";
             }), 
             function(error) {
@@ -131,8 +132,10 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
 
 rezultati.controller("rezultatiController", function($scope, $http) {
     $scope.formData = {};
+    uporabnik = JSON.parse(sessionStorage.getItem('uid'));   
+    
 
-    $http.get('http://localhost:3000/rezultati/')
+    $http.get('http://localhost:3000/rezultati/test/' + uporabnik)
         .then(function(response) {
             $scope.vsirezultati = response.data;
         }), 
