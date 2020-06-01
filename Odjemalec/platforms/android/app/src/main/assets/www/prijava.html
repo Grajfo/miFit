@@ -85,11 +85,11 @@
                                     <div class="row">     
                                         <div class="col-lg-6">
                                             <label for="email">e-mail ali uporabniško ime:</label>
-                                            <input type="text" id="email" name="email" ng-model="formData.email">
+                                            <input type="email" id="email" name="email" ng-model="formData.email" required>
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo:</label>
-                                            <input type="password" id="geslo" name="geslo" ng-model="formData.geslo">
+                                            <input type="password" id="geslo" name="geslo" ng-model="formData.geslo" required>
                                         </div>
                                     </div>
                                     <button type="submit" ng-click="LoginPreveri()" class="register-btn">Potrdi</button>

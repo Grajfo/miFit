@@ -82,15 +82,15 @@
                                     <h2>Registracija</h2>
                                     <p>Vnesi elektronski naslov in geslo</p>
                                 </div>
-                                <form action="#" class="register-form">
+                                <form class="register-form" method="post" name="myform">
                                     <div class="row">     
                                         <div class="col-lg-6">
                                             <label for="email">Elektronski naslov:</label>
-                                            <input type="text" id="email" name="email" ng-model="formData.email">
+                                            <input type="email" id="email" name="email" ng-model="formData.email" required>
                                         </div>
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo</label>
-                                            <input type="password" id="geslo" name="geslo" ng-model="formData.geslo">
+                                            <input type="password" id="geslo" name="geslo" ng-model="formData.geslo" required>
                                         </div>
                                     
                                     </div>
