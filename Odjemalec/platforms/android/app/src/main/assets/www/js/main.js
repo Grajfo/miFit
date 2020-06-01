@@ -4,6 +4,7 @@ var rezultati = angular.module("rezultati", []);
 var recept = angular.module("recept", []);
 var vaja = angular.module("vaja", []);
 var trening = angular.module("trening", []);
+var user = angular.module("user", []);
 
 
 
@@ -107,6 +108,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             data: JSON.stringify($scope.formData)
           })
             .then(function(response) {
+
                 $scope.formData = {}
                 if (response.data.vloga === 0){
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
@@ -117,11 +119,10 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                     sessionStorage.setItem("uid", JSON.stringify(response.data));
                     uporabnik = JSON.parse(sessionStorage.getItem('uid'));
                    // window.location = "index.html";
-                    //admin stran
-
                 }
-                else{
-                  //  location.reload()
+                else if (response.data === false){
+                    alert('napacno geslo ali email')
+                    //  location.reload()
                 }
             }), 
             function(error) {
@@ -204,85 +205,11 @@ rezultati.controller("rezultatiController", function($scope, $http) {
         $('#details').hide();
     };
 })
-
+      
 recept.controller("receptController", function($scope, $http) {
     $scope.formData = {};
 
     uporabnik = JSON.parse(sessionStorage.getItem('uid'));       
-
-
-    $http.get('http://localhost:3000/recept/test/' + uporabnik)
-        .then(function(response) {
-            $scope.vsirecepti = response.data;
-        }), 
-        function(error) {
-            alert("napaka" + error.data);
-        };
-
-    $scope.pridobiRecept = function(id) {
-        $http.get('http://localhost:3000/recept/' + id)
-            .then(function(response) {
-                $('#details').show();
-                $scope.details = response.data;
-                console.log(response.data);
-            }), 
-            function(error) {
-                alert("napaka" + error.data);
-            };
-    };
-
-    $scope.dodajRecept = function() {
-        $http({
-            method: 'POST',
-            url: 'http://localhost:3000/recept/',
-            data: JSON.stringify($scope.formData)
-          })
-            .then(function(response) {
-                $scope.formData = {}
-                console.log(response.data);
-                location.reload();
-            }), 
-            function(error) {
-                alert(error.data + "napaka");
-            };
-    };
-
-   
-    $scope.urediRecept = function(id) {
-        $http({
-            method: 'PUT',
-            url: 'http://localhost:3000/recept/' + id,
-            data: JSON.stringify($scope.formData)
-          })
-          .then(function(response) {
-            $scope.formData = {}
-            console.log(response.data);
-            location.reload();
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-    };
-
-    $scope.izbrisiRecept = function(id) {
-        $http.delete('http://localhost:3000/recept/' + id)
-            .then(function(response) {
-                $scope.recept = response.data;
-                console.log(response.data);
-                location.reload();
-            }), 
-            function(error) {
-                alert('napaka' + error.data);
-            };
-    };
-    $scope.zapri = function() {
-        $('#details').hide();
-    };
-})
-recept.controller("receptController", function($scope, $http) {
-    $scope.formData = {};
-
-    uporabnik = JSON.parse(sessionStorage.getItem('uid'));         
 
 
     $http.get('http://localhost:3000/recept/test/' + uporabnik)
@@ -430,6 +357,81 @@ trening.controller("treningController", function($scope, $http) {
 
     $scope.izbrisiTrening = function(id) {
         $http.delete('http://localhost:3000/trening/' + id)
+            .then(function(response) {
+                $scope.rezultat = response.data;
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert('napaka' + error.data);
+            };
+    };
+    $scope.zapri = function() {
+        $('#details').hide();
+    };
+})
+
+
+user.controller("userController", function($scope, $http) {
+    $scope.formData = {};
+
+    uporabnik = JSON.parse(sessionStorage.getItem('uid'));       
+
+
+    $http.get('http://localhost:3000/Uporabnik/' + uporabnik)
+        .then(function(response) {
+            $scope.trening = response.data;
+        }), 
+        function(error) {
+            alert("napaka" + error.data);
+        };
+
+    $scope.pridobiUserje = function(id) {
+        $http.get('http://localhost:3000/Uporabnik/' + id)
+            .then(function(response) {
+                $('#details').show();
+                $scope.details = response.data;
+                console.log(response.data);
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
+    };
+
+    $scope.dodajUserja = function() {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/Uporabnik/',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
+                $scope.formData = {}
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
+    };
+
+    $scope.urediUserja= function(id) {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:3000/Uporabnik/' + id,
+            data: JSON.stringify($scope.formData)
+          })
+          .then(function(response) {
+            $scope.formData = {}
+            console.log(response.data);
+            location.reload();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+    };
+
+    $scope.izbrisiUserja = function(id) {
+        $http.delete('http://localhost:3000/Uporabnik/' + id)
             .then(function(response) {
                 $scope.rezultat = response.data;
                 console.log(response.data);

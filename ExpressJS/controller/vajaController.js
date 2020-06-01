@@ -25,8 +25,13 @@ exports.enaVaja = async(req, res) =>
 exports.dodajVajo = async(req, res) => {
     try {  
         const { naziv, opis, st_ponovitev,st_serij,poraba_kalorij,video_vaje,misicnaSkupina_id} = req.body;
-        const nov = await new Vaja().save({ naziv, opis, st_ponovitev,st_serij,poraba_kalorij,video_vaje,misicnaSkupina_id });
-        res.json('Dodano');
+        if (!naziv || !opis || !st_ponovitev || !st_serij || !poraba_kalorij || !misicnaSkupina_id ){
+            return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
+        }
+        else{
+            const nov = await new Vaja().save({ naziv, opis, st_ponovitev,st_serij,poraba_kalorij,video_vaje,misicnaSkupina_id });
+            res.json('Dodano');
+        }
      } 
  catch (error)
      {
@@ -48,12 +53,12 @@ exports.izbrisiVajo = async(req, res) => {
 
 exports.posodobiVajo = async(req, res) => {
     try {
-        if(true)
-        {
+        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.st_ponovitev === 'number' && typeof req.body.st_serij === 'number' && typeof req.body.poraba_kalorij === 'number' && typeof req.body.misicnaSkupina_id === 'number')                 
+        {    
             vaja = await new Vaja().where('id',req.params.id).fetch({require:true});
             vaja.save({
-                naziv:req.body.naziv,
-                opis:req.body.opis,
+                 naziv:req.body.naziv,
+                 opis:req.body.opis,
                  st_ponovitev:req.body.st_ponovitev,
                  st_serij:req.body.st_serij,
                  poraba_kalorij:req.body.poraba_kalorij,
