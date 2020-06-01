@@ -92,7 +92,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             .then(function(response) {
                 $scope.formData = {}
                 console.log(response.data);
-                location.reload();
+                window.location = "login.html";
             }), 
             function(error) {
                 alert(error.data + "napaka");

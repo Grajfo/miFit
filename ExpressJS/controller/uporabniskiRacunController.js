@@ -33,13 +33,18 @@ exports.aliobstaja =  async(req, res) =>
    {
         const vsiUporabniskiRacuni = await new uporabniskiRacun().fetchAll();
         const uporabnikObstaja = vsiUporabniskiRacuni.toJSON().filter(u => u.email === req.body.email);
-        const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo);
+        if(uporabnikObstaja.length > 0){
+            	const geslo = bcrypt.compareSync(req.body.geslo, uporabnikObstaja[0].geslo);
        // console.log(geslo)
-        if (geslo === true){
-            return res.json({"vloga":uporabnikObstaja[0].vloga, "id": uporabnikObstaja[0].id});
+            if (geslo === true){
+                return res.json({"vloga":uporabnikObstaja[0].vloga, "id": uporabnikObstaja[0].id});
+            }
+            else
+            {
+                return res.json(false);
+            }
         }
-        else
-        {
+        else{
             return res.json(false);
         }
    } 
