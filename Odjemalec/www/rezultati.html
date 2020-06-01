@@ -18,22 +18,46 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-	
-	    <script type="text/javascript" charset="utf-8">
+
+        <script type="text/javascript" charset="utf-8">
             document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            }
+            window.addEventListener( "pageshow", function ( event ) {
+                /// Zazna ce se je uporabnik na stran vrnil z gumbom nazaj v brskalniku in preveri ce je se vedno priajvljen
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            });
+        </script>
+	   
         
 
+        <!--
+	    <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
             function onDeviceReady() {
-                
                 var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
                 console.log(uporabnik);
-               
-
-                
                 var page = document.getElementById("myResultsPage");
                 var noPage = document.getElementById("UdorHackerja");
-
                 if (uporabnik) {
                     page.style.display = "block";
                     noPage.style.display = "none";
@@ -45,10 +69,8 @@
                 document.getElementById("data").innerHTML=uporabnik;
                 // localStorage is now empty
             }
-
-        
         </script>
-	
+	-->
     <title>miFit | Rezultati</title>
 
     <!-- Google Font -->
@@ -80,7 +102,7 @@
             </div>
             <div class="nav-menu">
                 <nav class="mainmenu mobile-menu">
-                    <ul>
+                    <ul style="margin-top: 20px;"> <!--    -->
                         <li><a href="./index.html">Domov</a></li>
                         <li><a href="./vaje.html">Vaje</a></li>
                         <li><a href="./treningi.html">Treningi</a></li>
@@ -88,6 +110,7 @@
                         <li><a href="./hrana.html">Prehrana</a></li>
                         <li><a href="./recepti.html">Recepti</a></li>
                         <li><a href="./user.html">Moj profil</a></li>
+                        <li><a onclick="sessionStorage.setItem('uid', false)" href="./prijava.html" style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; border: 2px solid #eb3c5a;">Odjava</a></li> <!--    -->
                     </ul>
                 </nav>
             </div>
@@ -117,8 +140,10 @@
 
     <!-- Register Section Begin -->
 
+    <!-- 
     <div class="container" id="UdorHackerja"></br></br></br></br></br></br></br></br><h5  style="text-align: center;">Za ogled te strani je potrebna prijava!</br></br></br></br></br> Stisni</br></br> <a href="./prijava.html"  class="primary-btn signup-btn">tukaj</a></br> </br> za prijavo </h5></br></br></br></div>
-
+    -->
+    
     <div id="myResultsPage">
     <div ng-app="rezultati" ng-controller="rezultatiController">
     <section class="register-section classes-page spad">

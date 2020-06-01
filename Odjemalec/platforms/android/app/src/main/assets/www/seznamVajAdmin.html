@@ -19,6 +19,36 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
 	
+
+        <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            }
+            window.addEventListener( "pageshow", function ( event ) {
+                /// Zazna ce se je uporabnik na stran vrnil z gumbom nazaj v brskalniku in preveri ce je se vedno priajvljen
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            });
+        </script>
+	
 	
     <title>Gutim | Template</title>
 

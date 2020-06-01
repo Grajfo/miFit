@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="zxx">
+<!--
+    Kaj je treba se popravit:
 
+    - Pri registraciji se vedno 2x mores stisnat  - Zan
+    - Pri vseh vnosih da ni teba vpisova uporabnik_id ampak da ga avtomatsko nardi  - Ilija
+    - Pri vseh izpisih da ti pokaze sam za uporabnika ki je prijavljen, ne za vse  - Ilija
+    - Pri vseh Spremembah da ni teba vpisova uporabnik_id ampak da ga avtomatsko nardi  - Ilija
+    - Timer plugin - Jan
+
+
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Gutim Template">
@@ -20,15 +30,32 @@
 
         <script type="text/javascript" charset="utf-8">
             document.addEventListener("deviceready", onDeviceReady, false);
-
             function onDeviceReady() {
-
                 var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                console.log(uporabnik);
-                document.getElementById("data").innerHTML=uporabnik;
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
             }
+            window.addEventListener( "pageshow", function ( event ) {
+                /// Zazna ce se je uporabnik na stran vrnil z gumbom nazaj v brskalniku in preveri ce je se vedno priajvljen
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            });
         </script>
-    <div id="data"></div>
 	
     <title>miFit | Home</title>
 
@@ -61,7 +88,7 @@
             </div>
             <div class="nav-menu">
                 <nav class="mainmenu mobile-menu">
-                    <ul>
+                    <ul style="margin-top: 20px;"> <!--    -->
                         <li class="active"><a href="./index.html">Domov</a></li>
                         <li><a href="./vaje.html">Vaje</a></li>
                         <li><a href="./treningi.html">Treningi</a></li>
@@ -69,9 +96,9 @@
                         <li><a href="./hrana.html">Prehrana</a></li>
                         <li><a href="./recepti.html">Recepti</a></li>
                         <li><a href="./user.html">Moj profil</a></li>
+                        <li><a onclick="sessionStorage.setItem('uid', false)" href="./prijava.html" style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; border: 2px solid #eb3c5a;">Odjava</a></li> <!--    -->
                     </ul>
                 </nav>
-                <a href="./prijava.html" class="primary-btn signup-btn">Prijava</a>
             </div>
             <div id="mobile-menu-wrap"></div>
         </div>
@@ -109,67 +136,20 @@
                 <div class="col-lg-6">
                     <div class="about-text">
                         <h2>Story About Us</h2>
-                        <p class="first-para">Lorem ipsum proin gravida nibh vel velit auctor aliquet. Aenean pretium
-                            sollicitudin, nascetur auci elit consequat ipsutissem niuis sed odio sit amet nibh vulputate
-                            cursus a amet.</p>
-                        <p class="second-para">Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, gravida
-                            quam semper libero sit amet. Etiam rhoncus. Maecenas tempus, tellus eget condimentum
-                            rhoncus, gravida quam semper libero sit amet.</p>
-                        <a href="#" class="primary-btn">Read More</a>
+                        <p class="first-para">Smo mlada ekipa osebnih trenerjev iz  in strmimo k zdravemu načinu življenja. 
+                            Svojo strast do dela in znanje želimo prenesti tudi na ostale. Želimo si, da bi se ljudje zavedali, 
+                            kako pomembno je naše zdravje in da moramo marsikaj postoriti, da ga ohranimo. </p>
+                        <p class="second-para">Naša ekipa poskrbi, da bo naše znanje krožilo in doseglo vse tiste, ki bodo imeli VOLJO in CILJ!
+                            To je vse kar potrebujete za ostalo bomo poskrbeli mi.
+                        </p>
+                        <p class="third-para">Ne pozabite : "omejitve so le v vaši glavi, ne bojte se pogledati onkraj postavljenega zidu in svet bo lepši".
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- About Section End -->
-
-    <!-- Services Section Begin -->
-    <section class="services-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="services-pic">
-                        <img src="img/services/service-pic.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-items">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="services-item bg-gray">
-                                    <img src="img/services/service-icon-1.png" alt="">
-                                    <h4>Strategies</h4>
-                                    <p>Aenean massa. Cum sociis Theme et natoque penatibus et magnis dis part urient
-                                        montes.</p>
-                                </div>
-                                <div class="services-item bg-gray pd-b">
-                                    <img src="img/services/service-icon-3.png" alt="">
-                                    <h4>Workout</h4>
-                                    <p>Aenean massa. Cum sociis Theme et natoque penatibus et magnis dis part urient
-                                        montes.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="services-item">
-                                    <img src="img/services/service-icon-2.png" alt="">
-                                    <h4>Yoga</h4>
-                                    <p>Aenean massa. Cum sociis Theme et natoque penatibus et magnis dis part urient
-                                        montes.</p>
-                                </div>
-                                <div class="services-item pd-b">
-                                    <img src="img/services/service-icon-4.png" alt="">
-                                    <h4>Weight Loss</h4>
-                                    <p>Aenean massa. Cum sociis Theme et natoque penatibus et magnis dis part urient
-                                        montes.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Services Section End -->
 
     <!-- Classes Section Begin -->
     <section class="classes-section spad">
@@ -185,56 +165,56 @@
                 <div class="col-lg-4">
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-1.jpg">
                         <div class="si-text">
-                            <h4>Yoga</h4>
-                            <span><i class="fa fa-user"></i> Ryan Knight</span>
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
                         </div>
                     </div>
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-4.jpg">
                         <div class="si-text">
-                            <h4>Karate</h4>
-                            <span><i class="fa fa-user"></i> Kevin McCormick</span>
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-2.jpg">
                         <div class="si-text">
-                            <h4>Running</h4>
-                            <span><i class="fa fa-user"></i> Randy Rivera</span>
+                            <h4>Full stack developer</h4>
+                            <span><i class="fa fa-user"></i>Jan Retko</span>
                         </div>
                     </div>
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-5.jpg">
                         <div class="si-text">
-                            <h4>Dance</h4>
-                            <span><i class="fa fa-user"></i> Russell Lane</span>
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-3.jpg">
                         <div class="si-text">
-                            <h4>Personal Training</h4>
-                            <span><i class="fa fa-user"></i> Cole Robertson</span>
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
                         </div>
                     </div>
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-6.jpg">
                         <div class="si-text">
-                            <h4>Weight Loss</h4>
-                            <span><i class="fa fa-user"></i> Ryan Scott</span>
+                            <h4>Full stack developer</h4>
+                            <span><i class="fa fa-user"></i>Jan Retko</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-7.jpg">
                         <div class="si-text">
-                            <h4>Personal Training</h4>
-                            <span><i class="fa fa-user"></i> Cole Robertson</span>
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
                         </div>
                     </div>
                     <div class="single-class-item set-bg" data-setbg="img/classes/classes-8.jpg">
                         <div class="si-text">
-                            <h4>Weight Loss</h4>
-                            <span><i class="fa fa-user"></i> Ryan Scott</span>
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
                         </div>
                     </div>
                 </div>
@@ -260,8 +240,7 @@
                         <div class="trainer-text">
                             <h5>Ilija Tomić</h5>
                             <span>Athlete</span>
-                            <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                                voluptatem.</p>
+                            <p>Imam večletne izkušnje s športom, fitnesom in borilnimi veščinami.</p>
                             <div class="trainer-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
@@ -277,8 +256,7 @@
                         <div class="trainer-text">
                             <h5>Jan Retko</h5>
                             <span>Gym coach</span>
-                            <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                                voluptatem.</p>
+                            <p>Svojo pot sem začel s streetworkoutom, s treningi z lastno težo. Pomagam začetnikom in jih uvajam v treninge.</p>
                             <div class="trainer-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
@@ -294,8 +272,7 @@
                         <div class="trainer-text">
                             <h5>Žan Grajfoner</h5>
                             <span>Fitness trainer</span>
-                            <p>non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                                voluptatem.</p>
+                            <p>Že v osnovni šoli sem ugotovil, da imam veliko energije in da bi se lahko ukvarjal s kakšnim športom.</p>
                             <div class="trainer-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
@@ -316,7 +293,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>success stories</h2>
+                        <h2>Success stories thanks to miFit</h2>
                     </div>
                 </div>
             </div>
@@ -324,33 +301,27 @@
                 <div class="col-lg-10 offset-lg-1">
                     <div class="testimonial-slider owl-carousel">
                         <div class="testimonial-item">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            <p>Glede izkušnje s miFit-om lahko rečem, da mi je top, ker je pristop oseben, kar ti da občutek, da si nekomu res pomemben. Jan me pozna po imenu npr. pa sem stranka od Žana, kar se mi zdi res lepo in mi da občutek, da sem res zaželena. Bila sem že v drugih aplikacija, kjer si bolj ali manj serijsko 🙂 Ljudje so top in pa kar mi je najbolj važno, da ko pridem tja, dosegam to, kar si zadam. Tudi vzpodbujanje in pozitivna energija je tisto, kar na koncu odloča, kako dobro boš naredil trening oz. koliko si motiviran 🙂 Ne bi hotela iti v drugo aplikacijo trenirat, ker sem že bila drugje in “vajb” v niFit-u je najboljši 🙂 </p>
                             <div class="ti-pic">
-                                <img src="img/testimonial/testimonial-1.jpg" alt="">
                                 <div class="quote">
                                     <img src="img/testimonial/quote-left.png" alt="">
                                 </div>
                             </div>
                             <div class="ti-author">
-                                <h4>Patrick Cortez</h4>
-                                <span>Leader</span>
+                                <h4>Lebron James</h4>
+                                <span>NBA Player</span>
                             </div>
                         </div>
                         <div class="testimonial-item">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            <p>miFit je super ustanova v kateri si lahko to, kar si. Osebje te sprejme brez zadržkov ter pomaga pri dosegu cilja. Sama aplikacija je zelo dobro opremljena in brez pomanjkljivosti, kar se tiče funkcionalnosti, knjižnic in modelov. Je ena super izkušnja, katero bi morali imeti vsi, ki si želite zdravega načina življenja. Ilija, Jan in Žan pa poskrbijo da zastavljene cilje dosežeš.</p>
                             <div class="ti-pic">
-                                <img src="img/testimonial/testimonial-1.jpg" alt="">
                                 <div class="quote">
                                     <img src="img/testimonial/quote-left.png" alt="">
                                 </div>
                             </div>
                             <div class="ti-author">
-                                <h4>Patrick Cortez</h4>
-                                <span>Leader</span>
+                                <h4>Cristiano Ronaldo</h4>
+                                <span>Juventus Player</span>
                             </div>
                         </div>
                     </div>
@@ -359,26 +330,6 @@
         </div>
     </section>
     <!-- Testimonial Section End -->
-
-    <!-- Banner Section Begin -->
-    <section class="banner-section set-bg" data-setbg="img/banner-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="banner-text">
-                        <h2>Get training today</h2>
-                        <p>Gimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                            industry’s standard.</p>
-                        <a href="#" class="primary-btn banner-btn">Contact Now</a>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <img src="img/banner-person.png" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Banner Section End -->
 
     <!-- Latest Blog Section Begin -->
     <section class="latest-blog-section spad">
@@ -395,30 +346,30 @@
                     <div class="single-blog-item">
                         <img src="img/blog/blog-1.jpg" alt="">
                         <div class="blog-widget">
-                            <div class="bw-date">February 17, 2019</div>
+                            <div class="bw-date">May 27, 20202</div>
                             <a href="#" class="tag">#Gym</a>
                         </div>
-                        <h4><a href="#">10 States At Risk of Rural Hospital Closures</a></h4>
+                        <h4><a href="#">Muke in problemi pri delu projektov</a></h4>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-blog-item">
                         <img src="img/blog/blog-2.jpg" alt="">
                         <div class="blog-widget">
-                            <div class="bw-date">February 17, 2019</div>
+                            <div class="bw-date">May 28, 20202</div>
                             <a href="#" class="tag">#Sport</a>
                         </div>
-                        <h4><a href="#">Diver who helped save Thai soccer team</a></h4>
+                        <h4><a href="#">Zakaj mi je tega teba saj že imam diplomo?</a></h4>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-blog-item">
                         <img src="img/blog/blog-3.jpg" alt="">
                         <div class="blog-widget">
-                            <div class="bw-date">February 17, 2019</div>
+                            <div class="bw-date">May 31, 20202</div>
                             <a href="#" class="tag">#Body</a>
                         </div>
-                        <h4><a href="#">Man gets life in prison for stabbing</a></h4>
+                        <h4><a href="#">Ok, saj bo, samo še en teden je</a></h4>
                     </div>
                 </div>
             </div>
@@ -426,64 +377,9 @@
     </section>
     <!-- Latest Blog Section End -->
 
-    <!-- Footer Banner Section Begin -->
-    <section class="footer-banner">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="footer-banner-item set-bg" data-setbg="img/footer-banner/footer-banner-1.jpg">
-                        <span>New member</span>
-                        <h2>7 days for free</h2>
-                        <p>Complete the training sessions with us, surely you will be happy</p>
-                        <a href="#" class="primary-btn">Get Started</a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="footer-banner-item set-bg" data-setbg="img/footer-banner/footer-banner-2.jpg">
-                        <span>contact us</span>
-                        <h2>09 746 204</h2>
-                        <p>If you trust us on your journey they dark sex does not disappoint you!</p>
-                        <a href="#" class="primary-btn">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Banner Section End -->
-
     <!-- Footer Section Begin -->
     <footer class="footer-section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="contact-option">
-                        <span>Phone</span>
-                        <p>(123) 118 9999 - (123) 118 9999</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="contact-option">
-                        <span>Address</span>
-                        <p>72 Kangnam, 45 Opal Point Suite 391</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="contact-option">
-                        <span>Email</span>
-                        <p>contactcompany@Gutim.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="subscribe-option set-bg" data-setbg="img/footer-signup.jpg">
-                <div class="so-text">
-                    <h4>Subscribe To Our Mailing List</h4>
-                    <p>Sign up to receive the latest information </p>
-                </div>
-                <form action="#" class="subscribe-form">
-                    <input type="text" placeholder="Enter Your Mail">
-                    <button type="submit"><i class="fa fa-send"></i></button>
-                </form>
-            </div>
             <div class="copyright-text">
                 <ul>
                     <li><a href="#">Term&Use</a></li>
