@@ -53,7 +53,7 @@ exports.izbrisiVajo = async(req, res) => {
 
 exports.posodobiVajo = async(req, res) => {
     try {
-        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.st_ponovitev === 'number' && typeof req.body.st_serij === 'number' && typeof req.body.poraba_kalorij === 'number' && typeof req.body.misicnaSkupina_id === 'number')                 
+        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.st_ponovitev === 'number' && typeof req.body.st_serij === 'number' && typeof req.body.poraba_kalorij === 'number')                 
         {    
             vaja = await new Vaja().where('id',req.params.id).fetch({require:true});
             vaja.save({

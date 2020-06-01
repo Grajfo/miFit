@@ -74,7 +74,7 @@ exports.izbrisiTrening = async(req, res) => {
 
 exports.posodobiTrening = async(req, res) => {
     try {
-        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.tip === 'string' && typeof req.body.uporabnik_id === 'number' && typeof req.body.vaja_id === 'number')                 
+        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.tip === 'string' && typeof req.body.uporabnik_id === 'number' )                 
         {           
             trening = await new Trening().where('id',req.params.id).fetch({require:true});
             trening.save({
