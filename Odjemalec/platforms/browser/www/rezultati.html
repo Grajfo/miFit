@@ -25,13 +25,16 @@
         
 
             function onDeviceReady() {
-                var usr = window.localStorage.getItem("uid");
+                
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                console.log(uporabnik);
+               
 
                 
                 var page = document.getElementById("myResultsPage");
                 var noPage = document.getElementById("UdorHackerja");
 
-                if (usr) {
+                if (uporabnik) {
                     page.style.display = "block";
                     noPage.style.display = "none";
                 } else {
@@ -39,7 +42,7 @@
                     noPage.style.display = "block";
                 }
 
-                document.getElementById("data").innerHTML=usr;
+                document.getElementById("data").innerHTML=uporabnik;
                 // localStorage is now empty
             }
 

@@ -14,6 +14,24 @@ exports.vsiRecepti = async(req, res) =>
     }
 };
 
+
+
+exports.vsiReceptiWhere = async(req, res) => 
+{
+    try
+    {
+        const vsiRecepti = await new Recept().where('uporabnik_id',req.params.id).fetchAll({require:true});
+        return res.json(vsiRecepti.toJSON());
+    } 
+    catch (err)
+    {
+        return res.status(500).json(err);
+    }
+};
+
+
+
+
 exports.enRecept = async(req, res) => 
 {
    try 
@@ -103,8 +121,8 @@ exports.posodobiRecept = async(req, res) =>
                     kalorije: req.body.kalorije,
                     hranilne_vrednosti: req.body.hranilne_vrednosti,
                     uporabnik_id: req.body.uporabnik_id,
-                    kategirja_id: req.body.kategirja_id,
-                    hrana_id: req.body.hrana_id
+                    kategirja_id: req.body.kategorija_id
+                   
                 }, {patch:true}
             );
             return res.json({message: 'recept posodobljena'});          

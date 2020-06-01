@@ -19,17 +19,35 @@
         <script type="text/javascript" src="js/main.js"></script>
 
 	
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+	
 	    <script type="text/javascript" charset="utf-8">
             document.addEventListener("deviceready", onDeviceReady, false);
         
 
             function onDeviceReady() {
                 
-                window.localStorage.clear();
-                // localStorage is now empty*/
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                console.log(uporabnik);               
+
+                
+                var page = document.getElementById("myResultsPage");
+                var noPage = document.getElementById("UdorHackerja");
+
+                if (uporabnik) {
+                    page.style.display = "block";
+                    noPage.style.display = "none";
+                } else {
+                    page.style.display = "none";
+                    noPage.style.display = "block";
+                }
+
+                document.getElementById("data").innerHTML=uporabnik;
+                // localStorage is now empty
             }
+
         
-            </script>
+        </script>
 	
     <title>miFit | Moj Profil</title>
 

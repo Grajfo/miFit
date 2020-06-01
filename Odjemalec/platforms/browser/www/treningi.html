@@ -18,7 +18,36 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
         <script type="text/javascript" src="js/main.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
 	
+	    <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+        
+
+            function onDeviceReady() {
+                
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                console.log(uporabnik);
+               
+
+                
+                var page = document.getElementById("myResultsPage");
+                var noPage = document.getElementById("UdorHackerja");
+
+                if (uporabnik) {
+                    page.style.display = "block";
+                    noPage.style.display = "none";
+                } else {
+                    page.style.display = "none";
+                    noPage.style.display = "block";
+                }
+
+                document.getElementById("data").innerHTML=uporabnik;
+                // localStorage is now empty
+            }
+
+        
+        </script>
 	
     <title>miFit | Treningi</title>
 
@@ -86,7 +115,12 @@
 
 
     <!-- Register Section Begin -->
-    <div>
+
+
+    <div class="container" id="UdorHackerja"></br></br></br></br></br></br></br></br><h5  style="text-align: center;">Za ogled te strani je potrebna prijava!</br></br></br></br></br> Stisni</br></br> <a href="./prijava.html"  class="primary-btn signup-btn">tukaj</a></br> </br> za prijavo </h5></br></br></br></div>
+
+    <div id="myResultsPage">
+    
     <div ng-app="trening" ng-controller="treningController">
     <section class="register-section classes-page spad">
         <div class="container">
@@ -102,11 +136,11 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <label for="name">Naziv</label>
-                                                <input type="text" id="naziv" name="naziv" ng-model="formData.naziv">
+                                                <input type="text"  id="naziv" name="naziv" ng-model="formData.naziv" required>                                               
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="email">Tip</label>
-                                                <input type="text" id="uspesnost" name="uspesnost" ng-model="formData.tip">
+                                                <input type="text" id="uspesnost" name="uspesnost" ng-model="formData.tip" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="email">Opis</label>
@@ -114,15 +148,15 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="last-name">Datum</label>
-                                                <input type="date" id="datum_rezultata" name="datum_rezultata" ng-model="formData.datum_treninga">
+                                                <input type="date" id="datum_rezultata" name="datum_rezultata" ng-model="formData.datum_treninga" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="mobile">*Vaja id*</label>
-                                                <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.vaja_id">
+                                                <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.vaja_id" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="mobile">*Uporabnik id*</label>
-                                                <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.uporabnik_id">
+                                                <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.uporabnik_id" required>
                                             </div>
                                         </div>
                                         <button ng-click="dodajTrening()" class="register-btn">Shrani</button>
@@ -156,8 +190,8 @@
                                                                 <p>Datum</p>
                                                             </div>
                                                             <div class="single-counter">
-                                                                <button ng-click="izbrisiTrening(trening.id)" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Izbirši</button>
-                                                                <button ng-click="pridobiTrening(trening.id)" data-toggle="modal" id={{trening.id}} data-target="#myModal" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Uredi</button>
+                                                                <button ng-click="izbrisiTrening(trening.id)" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Izbriši</button>
+                                                                <button ng-click="pridobiTreninge(trening.id)" data-toggle="modal" id={{trening.id}} data-target="#myModal" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Uredi</button>
                                                                <!-- Modal -->
                                                                <div class="modal fade" id="myModal" role="dialog">
                                                                 <div class="modal-dialog">
@@ -177,42 +211,46 @@
                                                                                             <div class="register-text" style="padding: 10px 30px 10px 30px;">
                                                                                                 <form class="register-form">
                                                                                                     <div class="row">
-                                                                                                <div >                                                                                                            
-                                                                                                    <div id="details" >
-                                                                                                        <br/>
+                                                                                                        <div hidden>                                                                                                            
+                                                                                                            <div id="details" >
+                                                                                                                <br/>
                                                                                                         <h3>rezultati details</h3>
                                                                                                         <label>ID: {{details.id}}</label><br/>
                                                                                                         <label>naziv: {{details.naziv}}</label><br/>
                                                                                                         <label>tip: {{details.tip}}</label><br/>
                                                                                                         <label>opis : {{details.opis}}</label><br/>
-                                                                                                        <label>Datum: {{details.datum_trening}}</label><br/>
+                                                                                                        <label>Datum: {{details.datum_treninga}}</label><br/>
                                                                                                         <label>Uporabnik id: {{details.uporabnik_id}}</label><br/>
                                                                                                         <label>Vaja id : {{details.vaja_id}}</label><br/>                                                                                                       
                                                                                                         <button ng_click="zapri()">Zapri</button>
                                                                                                     </div>
-                                                                                                </div>
+                                                                                                    </div>
                                                                                                             <div class="col-lg-12">
                                                                                                                 <label for="mobile">Naziv</label>
-                                                                                                                <input type="number" id="Naziv" name="Naziv" ng-model="formData.naziv">
+                                                                                                                <input type="text" placeholder="{{details.naziv}}" id="Naziv" name="Naziv" ng-model="formData.naziv" required>
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
                                                                                                                 <label for="name">tip</label>
-                                                                                                                <input type="text" id="tip" name="tip" ng-model="formData.tip">
+                                                                                                                <input type="text" placeholder="{{details.tip}}" id="tip" name="tip" ng-model="formData.tip" required>
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
                                                                                                                 <label for="email">Opis</label>
-                                                                                                                <input type="text" id="opis" name="opis" ng-model="formData.opis">
+                                                                                                                <input type="text" placeholder="{{details.opis}}" id="opis" name="opis" ng-model="formData.opis">
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
-                                                                                                                <label for="last-name">Datum trening</label>
-                                                                                                                <input type="date" value="2017-06-01" id="datum_trening" name="datum_trening" ng-model="formData.datum_trening">
+                                                                                                                <label for="last-name">Datum treninga</label>
+                                                                                                                <input type="date" placeholder="{{details.datum_treninga}}" value="2017-06-01" id="datum_treninga" name="datum_treninga" ng-model="formData.datum_treninga" required>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label for="mobile">Uporabnik id</label>
+                                                                                                                <input type="number"  id="uporabnik_id" name="uporabnik_id" ng-model="formData.uporabnik_id" required>
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
                                                                                                                 <label for="mobile">Vaja id</label>
-                                                                                                                <input type="number" id="vaja_id" name="vaja_id" ng-model="formData.vaja_id">
+                                                                                                                <input type="number" placeholder="{{details.vaja_id}}" id="vaja_id" name="vaja_id" ng-model="formData.vaja_id" required>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                                        <button ng-click="urediTrening(trening.id)" class="register-btn outer">Uredi</button> 
+                                                                                                        <button ng-click="urediTrening(details.id)" class="register-btn outer">Uredi</button> 
                                                                                                     </form>
                                                                                                 </div>
                                                                                             </div>
@@ -226,14 +264,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>  
-                                                                <script>
-                                                                    var ind = 0;
-                                                                    $('#myModal').on('show.bs.modal', function(e) {
-                                                                        var $modal = $(this),
-                                                                            esseyId = e.relatedTarget.id;
-                                                                                $modal.find('.edit-content').html(esseyId);
-                                                                    })
-                                                                </script>
                                                             </div>
                                                         </div>
                                                     </li></br></br></br>

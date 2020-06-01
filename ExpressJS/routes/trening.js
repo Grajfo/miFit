@@ -6,6 +6,7 @@ const controller = require('../controller/treningController');
 
 router.get('/', controller.vsiTreningi);
 router.get('/:id', controller.enTrening);
+router.get('/test/:id', controller.vsiTreningiWhere);
 router.post('/', controller.dodajTrening);
 router.delete('/:id', controller.izbrisiTrening);
 router.put('/:id', controller.posodobiTrening);

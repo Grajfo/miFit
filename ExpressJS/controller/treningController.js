@@ -9,7 +9,13 @@ exports.vsiTreningi = async(req, res) => {
         res.status(500).json(error);
         } }
 
-
+exports.vsiTreningiWhere = async(req, res) => {
+            try {  
+                const trening = await new Trening().where('uporabnik_id',req.params.id).fetchAll({require:true});
+                res.json(trening.toJSON());
+                } catch (error) {
+                res.status(500).json(error);
+                } }
 exports.enTrening = async(req, res) => 
 {
    try 
