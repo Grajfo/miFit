@@ -156,6 +156,7 @@ rezultati.controller("rezultatiController", function($scope, $http) {
     };
 
     $scope.dodajRezultat = function() {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));
         $http({
             method: 'POST',
             url: 'http://localhost:3000/rezultati/',
@@ -172,6 +173,7 @@ rezultati.controller("rezultatiController", function($scope, $http) {
     };
 
     $scope.urediRezultat = function(id) {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));
         $http({
             method: 'PUT',
             url: 'http://localhost:3000/rezultati/' + id,
