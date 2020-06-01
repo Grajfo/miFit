@@ -203,7 +203,6 @@ rezultati.controller("rezultatiController", function($scope, $http) {
 
 
 recept.controller("receptController", function($scope, $http) {
-    $scope.formData = {};
     uporabnik = JSON.parse(sessionStorage.getItem('uid'));
    
 
