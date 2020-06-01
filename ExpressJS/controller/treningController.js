@@ -16,6 +16,7 @@ exports.vsiTreningiWhere = async(req, res) => {
                 } catch (error) {
                 res.status(500).json(error);
                 } }
+
 exports.enTrening = async(req, res) => 
 {
    try 
@@ -31,6 +32,7 @@ exports.enTrening = async(req, res) =>
 
 exports.dodajTrening = async(req, res) => {
     try {  
+
         const novtrening = 
         {
             naziv: req.body.naziv,       
@@ -42,9 +44,15 @@ exports.dodajTrening = async(req, res) => {
         };
 
 
-        const { naziv, tip, opis,datum_treninga,vaja_id} = req.body;
-        const nov = await new Trening().save(novtrening);
-        res.json('Dodano');
+        //const { naziv, tip, opis,datum_treninga,vaja_id} = req.body;
+        if (!novtrening.naziv || !novtrening.tip || !novtrening.opis || !novtrening.datum_treninga || !novtrening.vaja_id || !novtrening.uporabnik_id)
+        {
+            return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
+        }
+        else{
+            const nov = await new Trening().save(novtrening);
+            res.json('Dodano');
+        }
      } 
  catch (error)
      {
@@ -66,7 +74,7 @@ exports.izbrisiTrening = async(req, res) => {
 
 exports.posodobiTrening = async(req, res) => {
     try {
-        if(true)
+        if(typeof req.body.naziv === 'string' && typeof req.body.opis === 'string' && typeof req.body.tip === 'string' && typeof req.body.uporabnik_id === 'number' && typeof req.body.vaja_id === 'number')                 
         {           
             trening = await new Trening().where('id',req.params.id).fetch({require:true});
             trening.save({

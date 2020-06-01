@@ -10,9 +10,14 @@ try {
 
 exports.dodajMisicno = async(req, res) => {
     try {  
-           const { ime,tip, slika} = req.body;
-           const nov = await new MisicnaSkupina().save({ime,tip, slika});
-           res.json('Dodano');
+           const {ime, tip, slika} = req.body;
+           if (!ime || !tip){
+               return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
+           }
+           else{
+                const nov = await new MisicnaSkupina().save({ime, tip, slika});
+                res.json('Dodano');
+           }
         } 
     catch (error)
         {
@@ -34,9 +39,9 @@ exports.izbrisiMisicno = async(req, res) => {
 
 exports.posodobiMisicno = async(req, res) => {
     try {
-        if(true)
+        if(typeof req.body.ime === 'string' && typeof req.body.tip === 'string')                 
         {           
-            misicna = await new MisicnaSkupina().where('id',req.body.id).fetch({require:true});
+            misicna = await new MisicnaSkupina().where('id',req.params.id).fetch({require:true});
             misicna.save({
                 ime:req.body.ime,
                 tip:req.body.tip,

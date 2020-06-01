@@ -108,6 +108,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             data: JSON.stringify($scope.formData)
           })
             .then(function(response) {
+
                 $scope.formData = {}
                 if (response.data.vloga === 0){
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
@@ -118,11 +119,10 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                     sessionStorage.setItem("uid", JSON.stringify(response.data));
                     uporabnik = JSON.parse(sessionStorage.getItem('uid'));
                    // window.location = "index.html";
-                    //admin stran
-
                 }
-                else{
-                  //  location.reload()
+                else if (response.data === false){
+                    alert('napacno geslo ali email')
+                    //  location.reload()
                 }
             }), 
             function(error) {
