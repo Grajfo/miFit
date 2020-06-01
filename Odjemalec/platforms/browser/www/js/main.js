@@ -156,7 +156,7 @@ rezultati.controller("rezultatiController", function($scope, $http) {
     };
 
     $scope.dodajRezultat = function() {
-        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));///--
         $http({
             method: 'POST',
             url: 'http://localhost:3000/rezultati/',
@@ -173,7 +173,7 @@ rezultati.controller("rezultatiController", function($scope, $http) {
     };
 
     $scope.urediRezultat = function(id) {
-        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid')); ///--
         $http({
             method: 'PUT',
             url: 'http://localhost:3000/rezultati/' + id,
@@ -205,11 +205,11 @@ rezultati.controller("rezultatiController", function($scope, $http) {
     };
 })
 
-
-
 recept.controller("receptController", function($scope, $http) {
-    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-   
+    $scope.formData = {};
+
+    uporabnik = JSON.parse(sessionStorage.getItem('uid'));       
+
 
     $http.get('http://localhost:3000/recept/test/' + uporabnik)
         .then(function(response) {
@@ -247,7 +247,91 @@ recept.controller("receptController", function($scope, $http) {
             };
     };
 
+   
     $scope.urediRecept = function(id) {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:3000/recept/' + id,
+            data: JSON.stringify($scope.formData)
+          })
+          .then(function(response) {
+            $scope.formData = {}
+            console.log(response.data);
+            location.reload();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+    };
+
+    $scope.izbrisiRecept = function(id) {
+        $http.delete('http://localhost:3000/recept/' + id)
+            .then(function(response) {
+                $scope.recept = response.data;
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert('napaka' + error.data);
+            };
+    };
+    $scope.zapri = function() {
+        $('#details').hide();
+    };
+})
+recept.controller("receptController", function($scope, $http) {
+    $scope.formData = {};
+
+    uporabnik = JSON.parse(sessionStorage.getItem('uid'));         
+
+
+    $http.get('http://localhost:3000/recept/test/' + uporabnik)
+        .then(function(response) {
+            $scope.vsirecepti = response.data;
+        }), 
+        function(error) {
+            alert("napaka" + error.data);
+        };
+        $http.get('http://localhost:3000/Kategorija_recepta/')
+            .then(function(response) {
+                $scope.vsekategorije = response.data;
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
+
+    $scope.pridobiRecept = function(id) {
+        $http.get('http://localhost:3000/recept/' + id)
+            .then(function(response) {
+                $('#details').show();
+                $scope.details = response.data;
+                console.log(response.data);
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
+    };
+
+    $scope.dodajRecept = function() {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));///--
+        $http({
+            method: 'POST',
+            url: 'http://localhost:3000/recept/',
+            data: JSON.stringify($scope.formData)
+          })
+            .then(function(response) {
+                $scope.formData = {}
+                console.log(response.data);
+                location.reload();
+            }), 
+            function(error) {
+                alert(error.data + "napaka");
+            };
+    };
+
+   
+    $scope.urediRecept = function(id) {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));///--
         $http({
             method: 'PUT',
             url: 'http://localhost:3000/recept/' + id,
@@ -290,6 +374,13 @@ trening.controller("treningController", function($scope, $http) {
         function(error) {
             alert("napaka" + error.data);
         };
+        $http.get('http://localhost:3000/vaja/')
+            .then(function(response) {
+                $scope.vsevaje = response.data;
+            }), 
+            function(error) {
+                alert("napaka" + error.data);
+            };
 
     $scope.pridobiTreninge = function(id) {
         $http.get('http://localhost:3000/trening/' + id)
@@ -304,6 +395,7 @@ trening.controller("treningController", function($scope, $http) {
     };
 
     $scope.dodajTrening = function() {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));///--
         $http({
             method: 'POST',
             url: 'http://localhost:3000/trening/',
@@ -320,6 +412,7 @@ trening.controller("treningController", function($scope, $http) {
     };
 
     $scope.urediTrening = function(id) {
+        $scope.formData.uporabnik_id = JSON.parse(sessionStorage.getItem('uid'));///--
         $http({
             method: 'PUT',
             url: 'http://localhost:3000/trening/' + id,
@@ -358,6 +451,14 @@ vaja.controller("vajaController", function($scope, $http) {
     $http.get('http://localhost:3000/vaja/')
         .then(function(response) {
             $scope.vsevaje = response.data;
+        }), 
+        function(error) {
+            alert("napaka" + error.data);
+        };
+
+        $http.get('http://localhost:3000/misicnaSkupina/')
+        .then(function(response) {
+            $scope.vseMisicneSkupine = response.data;
         }), 
         function(error) {
             alert("napaka" + error.data);

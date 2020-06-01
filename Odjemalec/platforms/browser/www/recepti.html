@@ -156,12 +156,10 @@
                                                     <input type="text" id="hranilne_vrednosti" name="hranilne_vrednosti" ng-model="formData.hranilne_vrednosti" required>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <label for="last-name">*Uporabnik_id*</label>
-                                                    <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.uporabnik_id" required>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <label for="last-name">*Kategorija_id*</label>
-                                                    <input type="number" id="uporabnik_id" name="uporabnik_id" ng-model="formData.kategirja_id" required>
+                                                    <label for="mobile">Kategorija</label>
+                                                    <select class="form-control"  ng-model="formData.kategirja_id">
+                                                        <option value="{{x.id}}" ng-repeat="x in vsekategorije">{{x.ime_kategorije}}</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <button ng-click="dodajRecept()" class="register-btn">Shrani</button>
@@ -257,10 +255,6 @@
                                                                                                                     <input type="text" placeholder="{{details.hranilne_vrednosti}}" id="hranilne_vrednosti" name="hranilne_vrednosti" ng-model="formData.hranilne_vrednosti" required>
                                                                                                                 </div>
                                                                                                                 <div class="col-lg-12">
-                                                                                                                    <label for="last-name">uporabnik_id</label>
-                                                                                                                    <input type="text" placeholder="{{details.uporabnik_id}}" id="uporabnik_id" name="uporabnik_id" ng-model="formData.uporabnik_id" required>
-                                                                                                                </div>
-                                                                                                                <div class="col-lg-12">
                                                                                                                     <label for="mobile">kategorija_id*</label>
                                                                                                                     <input type="number"  placeholder="1" id="kategorija_id" name="kategorija_id" ng-model="formData.kategorija_id" required>
                                                                                                                 </div>
@@ -278,8 +272,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>  
-                                                                 
+                                                                    </div> 
                                                                 </div>
                                                             </div>
                                                         </li></br></br></br>
