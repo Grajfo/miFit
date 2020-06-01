@@ -8,7 +8,7 @@ var trening = angular.module("trening", []);
 
 
 var treningAdmin = angular.module("treningAdmin", []);
-var receptAdmin = angular.module("receptAdmin", []);
+var receptiAdmin = angular.module("receptiAdmin", []);
 
 hrana.controller("hranaController", function($scope, $http) {
     $scope.formData = {};
@@ -205,7 +205,7 @@ rezultati.controller("rezultatiController", function($scope, $http) {
 recept.controller("receptController", function($scope, $http) {
     $scope.formData = {};
     uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-    
+   
 
     $http.get('http://localhost:3000/recept/test/' + uporabnik)
         .then(function(response) {
@@ -500,9 +500,7 @@ treningAdmin.controller("treningControllerAdmin", function($scope, $http) {
 
 
 
-
-
-receptAdmin.controller("receptControllerAdmin", function($scope, $http) {
+receptiAdmin.controller("receptControllerAdmin", function($scope, $http) {
     $scope.formData = {};
 
     $http.get('http://localhost:3000/recept/')
