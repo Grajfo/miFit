@@ -92,7 +92,43 @@
                                         <div class="col-lg-6">
                                             <label for="geslo">Geslo</label>
                                             <input type="password" id="geslo" name="geslo" ng-model="formData.geslo" required>
-                                        </div>             
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="ime">Ime</label>
+                                            <input type="text" id="ime" name="ime" ng-model="registrationFormData.ime" required>
+                                        </div>   
+                                        <div class="col-lg-6">
+                                            <label for="priimek">Priimek</label>
+                                            <input type="text" id="priimek" name="priimek" ng-model="registrationFormData.priimek">
+                                        </div>  
+                                        <div class="col-lg-8"> 
+                                        <div class="radio">
+                                            <input type="radio" id="moski" name="spol" value="M" ng-model="registrationFormData.spol" style="height: 20px;" required>
+                                            <label for="moski">moski</label><br>
+                                        </div>    
+                                    </div>
+                                        <div class="col-lg-8"> 
+                                        <div class="radio">
+                                              <input type="radio" id="zenska" name="spol" value="Z" ng-model="registrationFormData.spol" style="height: 20px;">
+                                            <label for="zenska">zenska</label><br>
+                                        </div>    
+                                    </div>
+                                        <div class="col-lg-6">
+                                            <label for="starost">starost</label>
+                                            <input type="number" id="starost" name="starost" ng-model="registrationFormData.starost" required>
+                                        </div>  
+                                        <div class="col-lg-6">
+                                            <label for="teza">teza</label>
+                                            <input type="number" id="teza" name="teza" ng-model="registrationFormData.teza" required>
+                                        </div> 
+                                        <div class="col-lg-6">
+                                            <label for="visina">visina</label>
+                                            <input type="number" id="visina" name="visina" ng-model="registrationFormData.visina" required>
+                                        </div>            
+                                        <div class="col-lg-6">
+                                            <label for="ciljna teza">ciljna teza</label>
+                                            <input type="number" id="ciljna teza" name="ciljna teza" ng-model="registrationFormData.ciljna_teza" required>
+                                        </div>        
                                     </div>
                                     <button type="submit" ng-click="dodajUporabniskiRacun()" class="register-btn">Potrdi</button>
                                 </form>

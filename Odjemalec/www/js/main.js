@@ -607,8 +607,6 @@ treningAdmin.controller("treningControllerAdmin", function($scope, $http) {
 })
 
 
-
-
 receptiAdmin.controller("receptControllerAdmin", function($scope, $http) {
     $scope.formData = {};
 

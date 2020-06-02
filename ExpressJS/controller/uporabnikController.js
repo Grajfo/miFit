@@ -39,10 +39,11 @@ exports.dodajUporabnika = async(req, res) =>
             starost: req.body.starost,
             teza: req.body.teza,
             visina: req.body.visina,
-            ciljna_teza: req.body.ciljna_teza
+            ciljna_teza: req.body.ciljna_teza,
+            uporabniskiRacun_id: req.body.uporabniskiRacun_id
         };
 
-        if (!novuporabnik.ime || !Object.values(spolEnum).includes(novuporabnik.spol) || !novuporabnik.starost || !novuporabnik.teza || !novuporabnik.visina || !novuporabnik.ciljna_teza)
+        if (!novuporabnik.ime || !Object.values(spolEnum).includes(novuporabnik.spol) || !novuporabnik.starost || !novuporabnik.teza || !novuporabnik.visina || !novuporabnik.ciljna_teza || !novuporabnik.uporabniskiRacun_id)
         {
             return res.status(400).json({ msg: 'podatki ne smejo biti prazni' });
         }
