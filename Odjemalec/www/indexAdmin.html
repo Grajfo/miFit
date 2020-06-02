@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<!--
+    Kaj je treba se popravit:
+
+    - Pri registraciji se vedno 2x mores stisnat  - Zan
+    - Pri vseh vnosih da ni teba vpisova uporabnik_id ampak da ga avtomatsko nardi  - Ilija
+    - Pri vseh izpisih da ti pokaze sam za uporabnika ki je prijavljen, ne za vse  - Ilija
+    - Pri vseh Spremembah da ni teba vpisova uporabnik_id ampak da ga avtomatsko nardi  - Ilija
+    - Timer plugin - Jan
+
+
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Gutim Template">
+    <meta name="keywords" content="Gutim, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="img/logo4-mifit.png" rel="icon">
+	 <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <script type="text/javascript" src="cordova.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            }
+            window.addEventListener( "pageshow", function ( event ) {
+                /// Zazna ce se je uporabnik na stran vrnil z gumbom nazaj v brskalniku in preveri ce je se vedno priajvljen
+                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                if (uporabnik){
+                    /// Uporabnik JE prijavljen in stran se naloži
+                    console.log("Uporabnik ID: ",uporabnik);
+                }
+                else{
+                    /// Uporabnik NI prijavljen in stran se naloži
+                    console.log("Ni prijavljenega uporabnika ... Reaload - (Prijava)");
+                    location.replace("./prijava.html");
+                }
+            });
+        </script>
+	
+    <title>miFit | Home</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container">
+            <div class="logo">
+                <a href="./indexAdmin.html">
+                    <img src="img/logo-mifit.png" alt="">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu">
+                    <ul style="margin-top: 20px;"> <!--    -->
+                        <li class="active"><a href="./indexAdmin.html">Domov</a></li>
+                        <li><a href="./vajeAdmin.html">Vaje</a></li>
+                        <li><a href="./treningiAdmin.html">Treningi</a></li>
+                        <li><a href="./rezultatiAdmin.html">Rezultati</a></li>
+                        <li><a href="./hranaAdmin.html">Prehrana</a></li>
+                        <li><a href="./receptiAdmin.html">Recepti</a></li>
+                        <li><a href="./userAdmin.html">Moj profil</a></li>
+                        <li><a onclick="sessionStorage.setItem('uid', false)" href="./prijava.html" style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px; border: 2px solid #eb3c5a;">Odjava</a></li> <!--    -->
+                    </ul>
+                </nav>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <!-- Hero Section Begin -->
+    <section class="hero-section set-bg" data-setbg="img/hero-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="hero-text">
+                        <span>Žan & Jan & Ilija</span>
+                        <h1>MiFIT</h1>
+                        <p>Ultimate app for Fitness and nutrition & healthy lifestyle. All Your Favourite Workouts here!<br />ST projekt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Begin -->
+    <section class="about-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-pic">
+                        <img src="img/about-pic.jpg" alt="">
+                        <a href="https://www.youtube.com/watch?v=SlPhMPnQ58k" class="play-btn video-popup">
+                            <img src="img/play.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-text">
+                        <h2>Story About Us</h2>
+                        <p class="first-para">Smo mlada ekipa osebnih trenerjev iz  in strmimo k zdravemu načinu življenja. 
+                            Svojo strast do dela in znanje želimo prenesti tudi na ostale. Želimo si, da bi se ljudje zavedali, 
+                            kako pomembno je naše zdravje in da moramo marsikaj postoriti, da ga ohranimo. </p>
+                        <p class="second-para">Naša ekipa poskrbi, da bo naše znanje krožilo in doseglo vse tiste, ki bodo imeli VOLJO in CILJ!
+                            To je vse kar potrebujete za ostalo bomo poskrbeli mi.
+                        </p>
+                        <p class="third-para">Ne pozabite : "omejitve so le v vaši glavi, ne bojte se pogledati onkraj postavljenega zidu in svet bo lepši".
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Classes Section Begin -->
+    <section class="classes-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>UNLIMITED CLASSES</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row classes-slider owl-carousel">
+                <div class="col-lg-4">
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-1.jpg">
+                        <div class="si-text">
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
+                        </div>
+                    </div>
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-4.jpg">
+                        <div class="si-text">
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-2.jpg">
+                        <div class="si-text">
+                            <h4>Full stack developer</h4>
+                            <span><i class="fa fa-user"></i>Jan Retko</span>
+                        </div>
+                    </div>
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-5.jpg">
+                        <div class="si-text">
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-3.jpg">
+                        <div class="si-text">
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
+                        </div>
+                    </div>
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-6.jpg">
+                        <div class="si-text">
+                            <h4>Full stack developer</h4>
+                            <span><i class="fa fa-user"></i>Jan Retko</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-7.jpg">
+                        <div class="si-text">
+                            <h4>Front end developer</h4>
+                            <span><i class="fa fa-user"></i>Ilija Tomic</span>
+                        </div>
+                    </div>
+                    <div class="single-class-item set-bg" data-setbg="img/classes/classes-8.jpg">
+                        <div class="si-text">
+                            <h4>Back end developer</h4>
+                            <span><i class="fa fa-user"></i>Zan Grajfoner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Classes Section End -->
+
+    <!-- Trainer Section Begin -->
+    <section class="trainer-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>EXPERT TRAINERS</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-trainer-item">
+                        <img src="img/trainer/trainer-1.jpg" alt="">
+                        <div class="trainer-text">
+                            <h5>Ilija Tomić</h5>
+                            <span>Athlete</span>
+                            <p>Imam večletne izkušnje s športom, fitnesom in borilnimi veščinami.</p>
+                            <div class="trainer-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-trainer-item">
+                        <img src="img/trainer/trainer-2.jpg" alt="">
+                        <div class="trainer-text">
+                            <h5>Jan Retko</h5>
+                            <span>Gym coach</span>
+                            <p>Svojo pot sem začel s streetworkoutom, s treningi z lastno težo. Pomagam začetnikom in jih uvajam v treninge.</p>
+                            <div class="trainer-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-trainer-item">
+                        <img src="img/trainer/trainer-3.jpg" alt="">
+                        <div class="trainer-text">
+                            <h5>Žan Grajfoner</h5>
+                            <span>Fitness trainer</span>
+                            <p>Že v osnovni šoli sem ugotovil, da imam veliko energije in da bi se lahko ukvarjal s kakšnim športom.</p>
+                            <div class="trainer-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Trainer Section End -->
+
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Success stories thanks to miFit</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="testimonial-slider owl-carousel">
+                        <div class="testimonial-item">
+                            <p>Glede izkušnje s miFit-om lahko rečem, da mi je top, ker je pristop oseben, kar ti da občutek, da si nekomu res pomemben. Jan me pozna po imenu npr. pa sem stranka od Žana, kar se mi zdi res lepo in mi da občutek, da sem res zaželena. Bila sem že v drugih aplikacija, kjer si bolj ali manj serijsko 🙂 Ljudje so top in pa kar mi je najbolj važno, da ko pridem tja, dosegam to, kar si zadam. Tudi vzpodbujanje in pozitivna energija je tisto, kar na koncu odloča, kako dobro boš naredil trening oz. koliko si motiviran 🙂 Ne bi hotela iti v drugo aplikacijo trenirat, ker sem že bila drugje in “vajb” v niFit-u je najboljši 🙂 </p>
+                            <div class="ti-pic">
+                                <div class="quote">
+                                    <img src="img/testimonial/quote-left.png" alt="">
+                                </div>
+                            </div>
+                            <div class="ti-author">
+                                <h4>Lebron James</h4>
+                                <span>NBA Player</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                            <p>miFit je super ustanova v kateri si lahko to, kar si. Osebje te sprejme brez zadržkov ter pomaga pri dosegu cilja. Sama aplikacija je zelo dobro opremljena in brez pomanjkljivosti, kar se tiče funkcionalnosti, knjižnic in modelov. Je ena super izkušnja, katero bi morali imeti vsi, ki si želite zdravega načina življenja. Ilija, Jan in Žan pa poskrbijo da zastavljene cilje dosežeš.</p>
+                            <div class="ti-pic">
+                                <div class="quote">
+                                    <img src="img/testimonial/quote-left.png" alt="">
+                                </div>
+                            </div>
+                            <div class="ti-author">
+                                <h4>Cristiano Ronaldo</h4>
+                                <span>Juventus Player</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonial Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest-blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Latest Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-item">
+                        <img src="img/blog/blog-1.jpg" alt="">
+                        <div class="blog-widget">
+                            <div class="bw-date">May 27, 20202</div>
+                            <a href="#" class="tag">#Gym</a>
+                        </div>
+                        <h4><a href="#">Muke in problemi pri delu projektov</a></h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-item">
+                        <img src="img/blog/blog-2.jpg" alt="">
+                        <div class="blog-widget">
+                            <div class="bw-date">May 28, 20202</div>
+                            <a href="#" class="tag">#Sport</a>
+                        </div>
+                        <h4><a href="#">Zakaj mi je tega teba saj že imam diplomo?</a></h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-item">
+                        <img src="img/blog/blog-3.jpg" alt="">
+                        <div class="blog-widget">
+                            <div class="bw-date">May 31, 20202</div>
+                            <a href="#" class="tag">#Body</a>
+                        </div>
+                        <h4><a href="#">Ok, saj bo, samo še en teden je</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="copyright-text">
+                <ul>
+                    <li><a href="#">Term&Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+                <p>&copy;<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></p>
+                <div class="footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
