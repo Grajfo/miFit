@@ -44,30 +44,28 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             data: JSON.stringify($scope.formData)
           })
             .then(function(response) {
-                console.log(response.data.id)
-
+                $scope.formData = {}
+                var podatki = response.data.vloga
                 $http.get('http://localhost:3000/Uporabnik/pridobi/' + response.data.id)
                 .then(function(response){
-                    console.log(response.data.id)
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
+                    if (podatki === 0){
+                        //uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                        window.location = "index.html";
+                    }
+                    else if (podatki === 1){
+                        //uporabnik = JSON.parse(sessionStorage.getItem('uid'));    
+                        window.location = "indexAdmin.html";
+                        //admin stran
+        
+                    }
+                    else if (response.data === false){
+                        alert("narobe email ali geslo");
+                      //  location.reload()
+                    }
                 }), 
                 function(error) {
                     alert(error.data + "narobe email ali geslo");
-                }
-                $scope.formData = {}
-                if (response.data.vloga === 0){
-                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                    window.location = "index.html";
-                }
-                else if (response.data.vloga === 1){
-                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));    
-                    window.location = "indexAdmin.html";
-                    //admin stran
-    
-                }
-                else if (response.data === false){
-                    alert("narobe email ali geslo");
-                  //  location.reload()
                 }
             }), 
             function(error) {
