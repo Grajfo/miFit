@@ -31,7 +31,8 @@
         <script type="text/javascript" charset="utf-8">
             document.addEventListener("deviceready", onDeviceReady, false);
             function onDeviceReady() {
-                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                const uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+
                 if (uporabnik){
                     /// Uporabnik JE prijavljen in stran se naloži
                     console.log("Uporabnik ID: ",uporabnik);
