@@ -45,27 +45,35 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
           })
             .then(function(response) {
                 $scope.formData = {}
-                var podatki = response.data.vloga
+                var podatki = response.data
+                if (response.data === false)
+                {
+                    alert("narobe email ali geslo");                    
+                }  
+                
+                else{
                 $http.get('http://localhost:3000/Uporabnik/pridobi/' + response.data.id)
                 .then(function(response){
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
-                    if (podatki === 0){
+                    sessionStorage.setItem("vloga", JSON.stringify(podatki.vloga));
+                   
+                   console.log(podatki);
+                  
+                    if (podatki.vloga === 0){
                         //uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                        window.location = "index.html";
+                      window.location = "index.html";
                     }
-                    else if (podatki === 1){
+                    else if (podatki.vloga === 1){
                         //uporabnik = JSON.parse(sessionStorage.getItem('uid'));    
-                        window.location = "indexAdmin.html";
+                       window.location = "indexAdmin.html";
                         //admin stran
         
                     }
-                    else if (response.data === false){
-                        alert("narobe email ali geslo");
-                      //  location.reload()
-                    }
+                   
                 }), 
                 function(error) {
                     alert(error.data + "narobe email ali geslo");
+                }; 
                 }
             }), 
             function(error) {

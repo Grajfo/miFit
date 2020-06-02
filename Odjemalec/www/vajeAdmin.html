@@ -16,8 +16,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>   
-        <script src="js/Modules/rezultati.js"></script>
-        <script src="js/Controllers/rezultatiController.js"></script>
+        <script src="js/Modules/vaja.js"></script>
+        <script src="js/Controllers/vajaController.js"></script>
 
 
         <script type="text/javascript" charset="utf-8">
@@ -78,31 +78,9 @@
                 }
             });
         </script>
-	   
-        
-
-        <!--
-	    <script type="text/javascript" charset="utf-8">
-            document.addEventListener("deviceready", onDeviceReady, false);
-            function onDeviceReady() {
-                var uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                console.log(uporabnik);
-                var page = document.getElementById("myResultsPage");
-                var noPage = document.getElementById("UdorHackerja");
-                if (uporabnik) {
-                    page.style.display = "block";
-                    noPage.style.display = "none";
-                } else {
-                    page.style.display = "none";
-                    noPage.style.display = "block";
-                }
-
-                document.getElementById("data").innerHTML=uporabnik;
-                // localStorage is now empty
-            }
-        </script>
-	-->
-    <title>miFit | Rezultati</title>
+	
+	
+    <title>miFit | Vaje</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
@@ -135,9 +113,9 @@
                 <nav class="mainmenu mobile-menu">
                     <ul style="margin-top: 20px;"> <!--    -->
                         <li><a href="./indexAdmin.html">Domov</a></li>
-                        <li><a href="./vajeAdmin.html">Vaje</a></li>
+                        <li class="active"><a href="./vajeAdmin.html">Vaje</a></li>
                         <li><a href="./treningiAdmin.html">Treningi</a></li>
-                        <li class="active"><a href="./rezultatiAdmin.html">Rezultati</a></li>
+                        <li><a href="./rezultatiAdmin.html">Rezultati</a></li>
                         <li><a href="./hranaAdmin.html">Prehrana</a></li>
                         <li><a href="./receptiAdmin.html">Recepti</a></li>
                         <li><a href="./userAdmin.html">Moj profil</a></li>
@@ -156,10 +134,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <h2>Rezultati</h2>
-                        <div id="data"></div>
+                        <h2>Vaje</h2>
                         <div class="breadcrumb-option">
-                            <span>Tukaj lahko dodajaš, urejaš in spremljaš svoje rezultate!</span>
+                            <span>Tukaj lahko dodajaš, urejaš in spremljaš svoje vaje!</span>
                         </div>
                     </div>
                 </div>
@@ -176,7 +153,7 @@
     -->
     
     <div id="myResultsPage">
-    <div ng-app="rezultati" ng-controller="rezultatiController">
+    <div ng-app="vaja" ng-controller="vajaController">
     <section class="register-section classes-page spad">
         <div class="container">
             <div class="classes-page-text">
@@ -184,8 +161,8 @@
                         <div class="col-lg-12">
                                 <div class="register-text">
                                     <div class="section-title">
-                                        <h2>Nov Rezultat</h2>
-                                        <p>Zabeleži svoj novi dosežek!</p>
+                                        <h2>Nova Vaja</h2>
+                                        <p>Vpiši kao izvajaš vajo!</p>
                                     </div>
                                     <form class="register-form">
                                         <div class="row">
@@ -194,15 +171,33 @@
                                                 <input type="text" id="naziv" name="naziv" ng-model="formData.naziv" required>
                                             </div>
                                             <div class="col-lg-12">
-                                                <label for="email">Uspešnost</label>
-                                                <input type="text" id="uspesnost" name="uspesnost" ng-model="formData.uspesnost" required>
+                                                <label for="email">Opis</label>
+                                                <input type="text" id="uspesnost" name="uspesnost" ng-model="formData.opis" required>
                                             </div>
                                             <div class="col-lg-12">
-                                                <label for="last-name">Datum</label>
-                                                <input type="date" id="datum_rezultata" name="datum_rezultata" ng-model="formData.datum_rezultata" required>
+                                                <label for="email">Število ponovitev</label>
+                                                <input type="number" id="uspesnost" name="uspesnost" ng-model="formData.st_ponovitev" required>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label for="email">Število serij</label>
+                                                <input type="number" id="uspesnost" name="uspesnost" ng-model="formData.st_serij" required>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label for="email">Poraba kalorij</label>
+                                                <input type="number" id="uspesnost" name="uspesnost" ng-model="formData.poraba_kalorij" required>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label for="email">Video vaje</label>
+                                                <input type="text" id="uspesnost" name="uspesnost" ng-model="formData.video_vaje" required>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label for="cars">Mišična skupina</label>
+                                                <select class="form-control"  ng-model="formData.misicnaSkupina_id">
+                                                    <option value="{{x.id}}" ng-repeat="x in vseMisicneSkupine">{{x.ime}}</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <button ng-click="dodajRezultat()" class="register-btn">Shrani</button>
+                                        <button ng-click="dodajVajo()" class="register-btn">Shrani</button>
                                     </form>
                                 </div>
                             </div>
@@ -213,24 +208,35 @@
                                     <div class="col-lg-12">
                                         <div>
                                             <div class="container">
-                                                <ul class="list-group" ng-repeat="rezultat in vsirezultati">
+                                                <ul class="list-group" ng-repeat="vaja in vsevaje">
                                                     <li class="list-group-item"> 
                                                         <div class="about-counter-text">
+                                                            <div class="single-counter">                                                         
+                                                                <img src="{{vaja.video_vaje}}">
+                                                            </div>                                                          
                                                             <div class="single-counter">
-                                                                <h2>{{rezultat.naziv}}</h2>
+                                                                <h2>{{vaja.naziv}}</h2>
                                                                 <p>Naziv</p>
                                                             </div>
                                                             <div class="single-counter">
-                                                                <h2>{{rezultat.uspesnost}}</h2>
-                                                                <p>Uspešnost</p>
+                                                                <h2>{{vaja.opis}}</h2>
+                                                                <p>Opis</p>
                                                             </div>
                                                             <div class="single-counter">
-                                                                <h2>{{rezultat.datum_rezultata}}</h2>
-                                                                <p>Datum</p>
+                                                                <h2>{{vaja.st_ponovitev}}</h2>
+                                                                <p>Število ponovitev</p>
                                                             </div>
                                                             <div class="single-counter">
-                                                                <button ng-click="izbrisiRezultat(rezultat.id)" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Izbirši</button>
-                                                                <button ng-click="pridobiRezultat(rezultat.id)" data-toggle="modal" id={{rezultat.id}} data-target="#myModal" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Uredi</button>
+                                                                <h2>{{vaja.st_serij}}</h2>
+                                                                <p>Število serij</p>
+                                                            </div>                                                       
+                                                            <div class="single-counter">
+                                                                <h2>{{vaja.poraba_kalorij}}</h2>
+                                                                <p>Poraba kalorij</p>
+                                                            </div>
+                                                            <div class="single-counter">
+                                                                <button ng-click="izbrisiVajo(vaja.id)" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Izbirši</button>
+                                                                <button ng-click="pridobiVajo(vaja.id)" data-toggle="modal" id={{vaja.id}} data-target="#myModal" class="primary-btn" style= "background-image: linear-gradient(to right, #000000 0%, #7e7e7e 100%), linear-gradient(to right, #000000 0%, #7e7e7e 100%)  !important; position: static !important; border-left: 2px solid #000000 !important; border-right: 2px solid #7e7e7e !important; background-repeat: repeat !important;">Uredi</button>
                                                                 <!-- Modal -->
                                                                 <div class="modal fade" id="myModal" role="dialog">
                                                                     <div class="modal-dialog">
@@ -238,7 +244,7 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <div class="section-title" style="margin-bottom: 0px !important;">
-                                                                                    <h3>Uredi Rezultat</h3>
+                                                                                    <h3>Uredi vajo</h3>
                                                                                 </div>
                                                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                             </div>
@@ -250,32 +256,53 @@
                                                                                                 <div class="register-text" style="padding: 10px 30px 10px 30px;">
                                                                                                     <form class="register-form">
                                                                                                         <div class="row">
-                                                                                                            <div hidden>
-                                                                                                                <button ng-click="pridobiRezultat(rezultat.id)">Details</button> 
+                                                                                                            <div hidden>                                                                                                            
                                                                                                                 <div id="details" >
                                                                                                                     <br/>
                                                                                                                     <h3>rezultati details</h3>
                                                                                                                     <label>ID: {{details.id}}</label><br/>
                                                                                                                     <label>naziv: {{details.naziv}}</label><br/>
-                                                                                                                    <label>uspesnost: {{details.uspesnost}}</label><br/>
-                                                                                                                    <label>datum : {{details.datum}}</label><br/>
+                                                                                                                    <label>opis: {{details.opis}}</label><br/>
+                                                                                                                    <label>st ponovitev : {{details.st_ponovitev}}</label><br/>
+                                                                                                                    <label>st serij: {{details.st_serij}}</label><br/>
+                                                                                                                    <label>poraba kalorij: {{details.poraba_kalorij}}</label><br/>
+                                                                                                                    <label>video vaje : {{details.video_vaje}}</label><br/>
+                                                                                                                    <label>misicna Skupina : {{details.misicnaSkupina_id}}</label><br/>
                                                                                                                     <button ng_click="zapri()">Zapri</button>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
                                                                                                                 <label for="name">Naziv</label>
-                                                                                                                <input type="text" placeholder="{{details.naziv}}" autocomplete="off" id="naziv" name="naziv" ng-model="formData.naziv" required>
+                                                                                                                <input type="text" placeholder="{{details.naziv}}" autocomplete="off" id="naziv" name="naziv" ng-model="formData.naziv" required>                                                                                                                
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
-                                                                                                                <label for="email">Uspešnost</label>
-                                                                                                                <input type="text" placeholder="{{details.uspesnost}}" id="uspesnost" name="uspesnost" ng-model="formData.uspesnost" required>
+                                                                                                                <label for="name">Opis</label>
+                                                                                                                <input type="text" placeholder="{{details.opis}}" id="opis" name="opis" ng-model="formData.opis">
                                                                                                             </div>
                                                                                                             <div class="col-lg-12">
-                                                                                                                <label for="last-name">Datum</label>
-                                                                                                                <input type="date" placeholder="{{details.datum}}" id="datum_rezultata" name="datum_rezultata" ng-model="formData.datum_rezultata" required>
+                                                                                                                <label for="last-name">st ponovitev</label>
+                                                                                                                <input type="number" placeholder="{{details.st_ponovitev}}" id="st_ponovitev" name="st_ponovitev" ng-model="formData.st_ponovitev" required>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label for="name">st_serij</label>
+                                                                                                                <input type="number" placeholder="{{details.st_serij}}" autocomplete="off" id="st_serij" name="st_serij" ng-model="formData.st_serij" required>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label for="email">poraba_kalorij</label>
+                                                                                                                <input type="number" placeholder="{{details.poraba_kalorij}}" id="poraba_kalorij" name="poraba_kalorij" ng-model="formData.poraba_kalorij" required>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label for="last-name">video_vaje</label>
+                                                                                                                <input type="text" placeholder="{{details.video_vaje}}" id="video_vaje" name="video_vaje" ng-model="formData.video_vaje" required>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label for="cars">Mišična skupina</label>
+                                                                                                                <select class="form-control"  ng-model="formData.misicnaSkupina_id">
+                                                                                                                    <option value="{{x.id}}" ng-repeat="x in vseMisicneSkupine">{{x.ime}}</option>
+                                                                                                                </select>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                                        <button ng-click="urediRezultat(details.id)" class="register-btn outer">Uredi</button>
+                                                                                                        <button ng-click="urediVajo(details.id)" class="register-btn outer">Uredi</button>
                                                                                                     </form>
                                                                                                 </div>
                                                                                             </div>
@@ -305,6 +332,9 @@
         </div>
     </section>
     </div>
+</div>
+</div>
+</div>
     <!-- Register Section End-->
 </br></br></br>
     <!-- Footer Section Begin -->
