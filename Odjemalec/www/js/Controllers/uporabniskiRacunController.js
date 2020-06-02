@@ -44,26 +44,39 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             data: JSON.stringify($scope.formData)
           })
             .then(function(response) {
-                $scope.formData = {}
-                if (response.data.vloga === 0){
+                console.log(response.data.id)
+                $http.get('http://localhost:3000/Uporabnik/pridobi/' + response.data.id)
+                .then(function(response){
+                    console.log(response.data.id)
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
-                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                    window.location = "index.html";
-                }
-                else if (response.data.vloga === 1){
-                    sessionStorage.setItem("uid", JSON.stringify(response.data));
-                    uporabnik = JSON.parse(sessionStorage.getItem('uid'));
-                   // window.location = "index.html";
-                    //admin stran
-
-                }
-                else if (response.data === false){
-                    alert("narobe email ali geslo");
-                  //  location.reload()
-                }
             }), 
             function(error) {
                 alert(error.data + "narobe email ali geslo");
             };
+            $scope.formData = {}
+            if (response.data.vloga === 0){
+                //sessionStorage.setItem("uid", JSON.stringify(response.data.id));
+                //console.log(response.data.id)
+
+                uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+                window.location = "index.html";
+            }
+            else if (response.data.vloga === 1){
+              //  sessionStorage.setItem("uid", JSON.stringify(response.data));
+                uporabnik = JSON.parse(sessionStorage.getItem('uid'));
+              //  console.log(uporabnik)
+
+               // window.location = "index.html";
+                //admin stran
+
+            }
+            else if (response.data === false){
+                alert("narobe email ali geslo");
+              //  location.reload()
+            }
+        }), 
+        function(error) {
+            alert(error.data + "narobe email ali geslo");
+        };
     };
 })
