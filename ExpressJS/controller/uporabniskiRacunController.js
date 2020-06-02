@@ -62,7 +62,7 @@ exports.addUporabniskiRacun = async(req, res) =>
         console.log(vsiUporabniskiRacuni)
         const poisciEmail = vsiUporabniskiRacuni.toJSON().some(e => e.email === req.body.email);
         if (poisciEmail === true){
-            return res.status(400).json({ msg: 'EMAIL ZE OBSTAJA!' });
+            return res.json(false);
         }
         else if (poisciEmail === false){
             const newuporabniskiRacun = 
@@ -79,7 +79,7 @@ exports.addUporabniskiRacun = async(req, res) =>
             else
             {
                 const shrani = await new uporabniskiRacun().save(newuporabniskiRacun);
-                return res.json({message: 'Nov Uporabniski Racun je vnesen!'}); 
+                return res.json({uspesno: true, message: 'Nov Uporabniski Racun je vnesen!'}); 
             } 
         }
     }

@@ -1,17 +1,17 @@
-var hrana = angular.module("hrana", []);
-var uporabniskiRacun = angular.module("uporabniskiRacun", []);
-var rezultati = angular.module("rezultati", []);
-var recept = angular.module("recept", []);
-var vaja = angular.module("vaja", []);
-var trening = angular.module("trening", []);
-var user = angular.module("user", []);
+//var hrana = angular.module("hrana", []);
+//var uporabniskiRacun = angular.module("uporabniskiRacun", []);
+//var rezultati = angular.module("rezultati", []);
+//var recept = angular.module("recept", []);
+//var vaja = angular.module("vaja", []);
+//var trening = angular.module("trening", []);
+//var user = angular.module("user", []);
 
 
 
-var treningAdmin = angular.module("treningAdmin", []);
-var receptiAdmin = angular.module("receptiAdmin", []);
+//var treningAdmin = angular.module("treningAdmin", []);
+//var receptiAdmin = angular.module("receptiAdmin", []);
 
-hrana.controller("hranaController", function($scope, $http) {
+/*hrana.controller("hranaController", function($scope, $http) {
     $scope.formData = {};
     
  
@@ -84,6 +84,7 @@ hrana.controller("hranaController", function($scope, $http) {
         };
 })
 
+
 uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http) {
     $scope.formData = {};
     $scope.dodajUporabniskiRacun = function() {
@@ -130,6 +131,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
             };
     };
 })
+
 
 rezultati.controller("rezultatiController", function($scope, $http) {
     $scope.formData = {};
@@ -529,7 +531,6 @@ vaja.controller("vajaController", function($scope, $http) {
 
 
 
-
 //ADMINISTRATOR CONTRO
 
 
@@ -678,7 +679,7 @@ receptiAdmin.controller("receptControllerAdmin", function($scope, $http) {
         $('#details').hide();
     };
 })
-
+*/
 
 /*  ---------------------------------------------------
     Template Name: Gutim

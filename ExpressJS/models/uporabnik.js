@@ -12,6 +12,9 @@ const Uporabnik = ks.Model.extend({
     },
     trening: function () {
         return this.hasMany(require('./trening'), 'uporabnik_id');
+    },
+    hrana: function () {
+        return this.hasMany(require('./hrana'), 'uporabnik_id');
     }
 });
 
