@@ -27,6 +27,21 @@ exports.enUporabnik = async(req, res) =>
    }
 };
 
+exports.pridobigledeNaidracuna =  async(req, res) => 
+{
+    try 
+   {
+        const uporabnik = await new Uporabnik().where('uporabniskiRacun_id', req.params.idUporabnik).fetch({ withRelated: ['recepti', 'rezultati', 'trening'] });
+        //const uporabnik = enuporabnikId.toJSON().filter(u => u.uporabniskiRacun_id === req.params.idur);      
+
+        return res.json(uporabnik.toJSON());
+   } 
+   catch (err) 
+   {
+        return res.status(404).json({msg: 'ID ('+req.params.idur+') ne obstaja'});        
+   }
+};
+
 exports.dodajUporabnika = async(req, res) => 
 {
     try
