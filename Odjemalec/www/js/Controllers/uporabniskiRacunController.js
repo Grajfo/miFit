@@ -49,6 +49,7 @@ uporabniskiRacun.controller("uporabniskiRacunController", function($scope, $http
                 $http.get('http://localhost:3000/Uporabnik/pridobi/' + response.data.id)
                 .then(function(response){
                     sessionStorage.setItem("uid", JSON.stringify(response.data.id));
+                    sessionStorage.setItem("vloga", JSON.stringify(podatki));
                     if (podatki === 0){
                         //uporabnik = JSON.parse(sessionStorage.getItem('uid'));
                         window.location = "index.html";
